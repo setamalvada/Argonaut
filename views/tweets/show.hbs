@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-2">
+    {{>menu}}
+  </div>
+
+  <div class="col-6">
+    <a class="text-muted" href="/">
+      <i class="fa fa-arrow-left mr-1 mb-3"></i>
+      Go back
+    </a>
+
+    <div class="card w-100 mb-3">
+      <div class="card-body">
+        <p class="card-subtitle mb-2 text-muted">{{date tweet.createdAt}}</p>
+    
+        <p class="card-text">
+          {{tweet.body}}
+        </p>
+        
+        {{#each tweet.hashtags as |hashtag|}}
+          <small class="text-muted">{{hashtag}}</small>
+        {{/each}}
+    
+        <img class="rounded-sm w-100" src="{{tweet.image}}" />
+      </div>
+    </div>
+    
+    <h5 class="mb-4"><i class="fa fa-comments mr-3"></i>Comments</h5>
+
+    {{> commentForm}}
+    
+    {{#each tweet.comments as |c|}}
+      <div class="mb-3 border-bottom pb-3">
+        <p class="card-subtitle mb-2 text-muted">{{date c.createdAt}}</p>
+        <a href="/{{c.user.username}}">@{{c.user.username}}</a>
+        <p>{{c.text}}</p>
+      </div>
+    {{/each}}
+  </div>
+
+  <div class="col-4">
+    {{>search}}
+    <hr />
+    {{>tweetForm}}
+  </div>
+</div>

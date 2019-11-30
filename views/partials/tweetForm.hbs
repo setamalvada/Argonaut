@@ -1,0 +1,16 @@
+<form action="/tweets" method="POST" class="mb-4" enctype="multipart/form-data">
+  <h6>New Tweet</h6>
+
+  <div class="form-group">
+    <textarea placeholder="tweet" name="body" type="text" class="form-control {{#if error.body }}is-invalid{{/if}}" id="body" value="{{ tweet.body }}" rows="3"></textarea>
+  </div>
+
+  <div class="form-group">
+    <input name="image" type="file" class="form-control-file {{#if error.image }}is-invalid{{/if}}" id="image"
+      placeholder="image" value="{{ tweet.image }}">
+  </div>
+
+  <button type="submit" class="btn btn-primary btn-outline btn-sm">
+    Tweet
+  </button>
+</form>
