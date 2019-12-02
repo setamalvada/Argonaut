@@ -10,3 +10,13 @@ strong {
 label {
     font-weight: 400;
 }
+
+.bgimg {
+    background-image: url('../images/map.png');
+}
+
+.traslucid {
+    background-color: white;
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+}

@@ -56,9 +56,9 @@ module.exports.new = (_, res) => {
 //         .catch(next)
 // }
 
-// module.exports.login = (_, res) => {
-//     res.render('users/login')
-// }
+module.exports.login = (_, res) => {
+    res.render('users/login')
+}
 
 // module.exports.doSocialLogin = (req, res, next) => {
 //     const socialProvider = req.params.provider

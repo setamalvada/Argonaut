@@ -1,6 +1,16 @@
 <form action="/login" method="POST" class="mb-3" autocomplete="off">
-  <div class="form-group">
-    <label for="email">email</label>
+
+
+
+
+
+
+
+
+
+
+  <div class="form-group form-signin">
+    <label for="email" class="sr-only">Email address</label>
     <input name="email" type="email" class="form-control {{#if error.email }}is-invalid{{/if}}" id="email"
       placeholder="Enter name" value="{{ user.email }}">
 
@@ -9,10 +19,8 @@
       {{error.email}}
     </div>
     {{/if}}
-  </div>
-
-  <div class="form-group">
-    <label for="password">password</label>
+ 
+    <label for="password" class="sr-only">password</label>
     <input name="password" type="password" class="form-control {{#if error.password }}is-invalid{{/if}}" id="password"
       placeholder="password" value="{{ user.password }}">
 
@@ -21,30 +29,39 @@
       {{error.password}}
     </div>
     {{/if}}
+
+     <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+      </div>
   </div>
 
-  <button type="submit" class="btn btn-primary">
+  <button type="submit" class="btn btn-outline-primary btn-lg">
     Log in
   </button>
+  
 </form>
 
-<a href="/users/new" class="mb-3">Sign up</a>
+<br>
+<br>
+
 
 <form action="/google" method="post" class="mb-3">
-  <button class="btn btn-danger btn-block" type="submit">
+  <button class="btn btn-danger btn-sm" type="submit">
     <i class="fa fa-google"></i>
     Login with Google
   </button>
 </form>
 
 <form action="/facebook" method="post" class="mb-3">
-  <button class="btn btn-primary btn-block" type="submit">
+  <button class="btn btn-primary btn-sm" type="submit">
     <i class="fa fa-facebook"></i> Login with Facebook
   </button>
 </form>
 
 <form action="/slack" method="post">
-  <button class="btn btn-warning btn-block" type="submit">
+  <button class="btn btn-warning btn-sm " type="submit">
     <i class="fa fa-slack"></i> Login with Slack
   </button>
 </form>
