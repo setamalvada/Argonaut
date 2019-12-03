@@ -11,6 +11,7 @@ module.exports = router;
 
 router.get('/home', baseController.index)
 router.get('/maps', baseController.show)
+router.get('/maps/input', baseController.input)
     // router.get('/', authMiddleware.isAuthenticated, mapsController.index)
     // router.get('/maps/:id', authMiddleware.isAuthenticated, mapsController.show)
     // router.post('/maps/:id/comments', authMiddleware.isAuthenticated, mapsController.addComment)
