@@ -19,6 +19,8 @@ module.exports.new = (_, res) => {
          bio: req.body.bio
      })
 
+     console.log(user)
+
     user.save()
                 .then((user) => {
                     // mailer.sendValidateEmail(user)
@@ -76,9 +78,9 @@ module.exports.login = (_, res) => {
 // }
 
 module.exports.doLogin = (req, res, next) => {
-    const { email, password, repeatPassword } = req.body
+    const { email, password/*, repeatPassword */} = req.body
 
-    if (!email || !password || !repeatPassword) {
+    if (!email || !password /*|| !repeatPassword*/) {
         return res.render('users/login', { user: req.body })
     }
 
@@ -90,12 +92,12 @@ module.exports.doLogin = (req, res, next) => {
                     error: { password: 'invalid password' }
                 })
             } else {
-                if(password!= repeatPassword){
+                /*if(password!= repeatPassword){
                     res.render('users/login', {
                         user: req.body,
                         error: { password: 'invalid password' }
                     })
-                } else {
+                } else {*/
                     return user.checkPassword(password)
                     .then(match => {
                         if (!match) {
@@ -106,10 +108,10 @@ module.exports.doLogin = (req, res, next) => {
                         } else {
                             req.session.user = user;
                             req.session.genericSuccess = 'Welcome!'
-                            res.redirect('/');
+                            res.redirect('users/userDashboard');
                         }
                     })
-                }
+                //}
             }
         })
         .catch(error => {
@@ -127,4 +129,8 @@ module.exports.doLogin = (req, res, next) => {
 module.exports.logout = (req, res) => {
     req.session.destroy();
     res.redirect('/login');
+}
+
+module.exports.createDashboard = (_, res) => {
+    res.render('users/userDashboard')
 }

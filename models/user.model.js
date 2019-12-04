@@ -40,11 +40,11 @@ const userSchema = new mongoose.Schema({
         required: [true, 'Password is required'],
         minlength: [8, 'Password needs at last 8 chars']
     },
-    repeatPassword: {
-        type: String,
-        required: [true, 'Password is required'],
-        minlength: [8, 'Password needs at last 8 chars']
-    },
+    // repeatPassword: {
+    //     type: String,
+    //     required: [true, 'Password is required'],
+    //     minlength: [8, 'Password needs at last 8 chars']
+    // },
     avatar: {
         type: String,
     },
@@ -94,12 +94,12 @@ userSchema.methods.checkPassword = function(password) {
     return bcrypt.compare(password, this.password);
 }
 
-userSchema.virtual('maps', {
-    ref: 'Map',
-    localField: '_id',
-    foreignField: 'user',
-    justOne: false,
-});
+// userSchema.virtual('maps', {
+//     ref: 'Map',
+//     localField: '_id',
+//     foreignField: 'user',
+//     justOne: false,
+// });
 
 const User = mongoose.model('User', userSchema);
 
