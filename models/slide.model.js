@@ -3,11 +3,6 @@ require('./texts.model')
 require('./like.model')
 
 const mapsSchema = new mongoose.Schema({
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
     title: {
         type: String,
         required: true
@@ -18,14 +13,18 @@ const mapsSchema = new mongoose.Schema({
     image: {
         type: String
     },
-    cathegory: {
-        type: String
+    long: {
+      type: {type: Number, max:180, min: -180, default: 0},
+      required: true
     },
-    slide:
-    [{
-       type:  mongoose.Schema.Types.ObjectId,
-       ref: 'Slide'
-   }],
+    lat: {
+      type: {type: Number, max:90, min: -90, default: 0},
+      required: true,      
+    },
+    map:{
+      type:  mongoose.Schema.Types.ObjectId,
+       ref: 'Map'
+    }
 
 }, { timestamps: true })
 

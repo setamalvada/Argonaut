@@ -64,6 +64,12 @@ const userSchema = new mongoose.Schema({
         facebook: String,
         slack: String
     },
+    map:
+         [{
+            type:  mongoose.Schema.Types.ObjectId,
+            ref: 'Map'
+        }],
+    
 }, { timestamps: true })
 
 userSchema.pre('save', function(next) {
