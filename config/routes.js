@@ -19,7 +19,7 @@ router.get('/maps/input', baseController.input)
 // router.post('/maps', authMiddleware.isAuthenticated, upload.single('image'), mapsController.create)
 
 router.get('/users/new', /*authMiddleware.isNotAuthenticated,*/ usersController.new)
-router.post('/users', /*authMiddleware.isNotAuthenticated,*/ upload.single('avatar'), usersController.create)
+router.post('/users', /*authMiddleware.isNotAuthenticated,upload.single('avatar'), */usersController.create)
 router.get('/users/:token/validate', usersController.validate)
 
 router.get('/login', /*authMiddleware.isNotAuthenticated,*/ usersController.login)

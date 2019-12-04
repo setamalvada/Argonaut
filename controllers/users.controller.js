@@ -15,13 +15,13 @@ module.exports.new = (_, res) => {
          email: req.body.email,
          password: req.body.password,
          repeatPassword: req.body.repeatPassword,
-         avatar: req.file ? req.file.url : undefined,
+         //avatar: req.file ? req.file.url : undefined,
          bio: req.body.bio
      })
 
     user.save()
                 .then((user) => {
-                    mailer.sendValidateEmail(user)
+                    // mailer.sendValidateEmail(user)
                     res.redirect('/login')
                 })
                 .catch(error => {
