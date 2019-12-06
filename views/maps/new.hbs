@@ -24,18 +24,25 @@
 
 
      function saveData(){
-         let title = document.getElementsByClassName("title")
-         arrTitles =[]
-          let description = document.getElementsByClassName("description")
-         arrDescriptions =[]
-         for (let i =0 ; i < title.length; i++){
+     
+         let title = document.getElementById("title").value
+         let description = document.getElementById("description").value
+         console.log(title)
+          let slide = 0
+        let element = {}
+        const arrObj = []
+        element.title = title
+        element.description = description
+        arrObj.push({element: element})
+        console.log(arrObj)
+         /* for (let i =0 ; i < title.length; i++){
              arrTitles[i] = title[i].value;
             console.log(title[i].value)
          }
          for (let j =0 ; j < title.length; j++){
              arrDescriptions[j] = description[j].value;
              console.log(description[j].value)
-     }
+     } */
      }
  </script>
  
