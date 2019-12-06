@@ -1,0 +1,47 @@
+ {{!-- <form action="/maps" method="POST" > --}}
+          <div class="form-group">
+            <label for="title">Enter title</label>
+            <input name="title" type="text" class="form-control title" id="title"
+            placeholder="Enter title" value="title">
+
+            <div class="form-group">
+            <label for="description">Your text</label>
+            <textarea name="description" type="text" class="form-control description"  id="description"
+            placeholder="Enter text" value="description" rows="4"></textarea>
+
+            
+        </div>
+
+<button onclick="saveData()">Click me</button>
+
+  <button type="submit" class="btn btn-primary">
+    Create map
+  </button>
+
+ 
+ 
+ <script>
+
+
+     function saveData(){
+         let title = document.getElementsByClassName("title")
+         arrTitles =[]
+          let description = document.getElementsByClassName("description")
+         arrDescriptions =[]
+         for (let i =0 ; i < title.length; i++){
+             arrTitles[i] = title[i].value;
+            console.log(title[i].value)
+         }
+         for (let j =0 ; j < title.length; j++){
+             arrDescriptions[j] = description[j].value;
+             console.log(description[j].value)
+     }
+     }
+ </script>
+ 
+ 
+ 
+ 
+ 
+ 
+ 

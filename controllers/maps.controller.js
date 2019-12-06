@@ -3,8 +3,11 @@ const Map = require('../models/maps.model');
 const User = require('../models/user.model');
 const Like = require('../models/like.model');
 
+//newMap
 
-
+module.exports.newMap = (_, res) => {
+    res.render('maps/new');
+}
 
 // const Comment = require('../models/comment.model');
 
