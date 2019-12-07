@@ -32,7 +32,7 @@
 
 <input type="submit" value="submit">
 </form>
-  <button type="submit" class="btn btn-primary">
+  <button type="button" class="btn btn-primary" id="create-map-btn">
     Create map
   </button>
 
@@ -135,7 +135,7 @@ const arrObj = []
         element.description = description
        element.longitude = longitude
         element.latitude = latitude
-        arrObj.push({element: element})
+        arrObj.push({...element})
         console.log(arrObj)
         return false
          
@@ -159,6 +159,8 @@ function addMarker(e){
 
 
  </script>
+
+ <script src="/js/mapbox.js"></script>
  
  
  
