@@ -23,10 +23,9 @@ label {
 
 #map {
     position: relative;
-    top: -840px;
+    /*top: -840px;*/
     width: 100%;
     height: 800px;
-    z-index: -100;
     /* height: 800px; */
 }
 

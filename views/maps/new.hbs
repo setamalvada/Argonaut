@@ -1,4 +1,7 @@
  {{!-- <form action="/maps" method="POST" > --}}
+
+<div>
+
  <form onsubmit="return saveData()">
           <div class="form-group">
             <label for="title">Enter title</label>
@@ -19,7 +22,14 @@
     Create map
   </button>
 
- 
+</div>
+
+<br>
+<br>
+
+
+<pre id='info'></pre>
+ <div id="map"></div>
  
  <script>
   const arrObj = []
@@ -46,6 +56,60 @@
              console.log(description[j].value)
      } */
      }
+
+
+
+
+
+
+      mapboxgl.accessToken = 'pk.eyJ1IjoiaXJvbm1vZHVsZTIiLCJhIjoiY2szZnQzdzN0MDdzNjNjbzQ5amZ5M24wMyJ9.1AdiIc2dD4lw7Toih03G0Q';
+
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [-77.04, 38.907],
+            zoom: 11.15,
+        });
+
+        console.log(map)
+
+        map.on('load', function() {
+            map.loadImage('https://img.icons8.com/android/24/000000/marker.png', function(error, image) {
+                if (error) throw error;
+                map.addImage('marker', image);
+                map.addLayer({
+                    "id": "points",
+                    "type": "symbol",
+                    "source": {
+                        "type": "geojson",
+                        "data": {
+                            "type": "FeatureCollection",
+                            "features": [{
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [0, 0]
+                                }
+                            }]
+                        }
+                    },
+                    "layout": {
+                        "icon-image": "marker",
+                        "icon-size": 1
+                    }
+                });
+            });
+        });
+
+map.on('mousemove', function (e) {
+document.getElementById('info').innerHTML =
+// e.point is the x, y coordinates of the mousemove event relative
+// to the top-left corner of the map
+JSON.stringify(e.point) + '<br />' +
+// e.lngLat is the longitude, latitude geographical position of the event
+JSON.stringify(e.lngLat.wrap());
+});
+
  </script>
  
  
