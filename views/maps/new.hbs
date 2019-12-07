@@ -7,6 +7,7 @@
             <label for="title">Enter title</label>
             <input name="title" type="text" class="form-control title" id="title"
             placeholder="Enter title" value="title">
+            </div>
 
             <div class="form-group">
             <label for="description">Your text</label>
@@ -15,6 +16,19 @@
 
             
         </div>
+
+        <div class="form-group">
+            <label for="long">Longitude</label>
+            <input name="long" type="text" class="form-control title" id="long"
+             value="long">
+            </div>
+
+        <div class="form-group">
+            <label for="lat">Latitude</label>
+            <input name="lat" type="text" class="form-control title" id="lat"
+             value="lat">
+            </div>    
+
 
 <input type="submit" value="submit">
 </form>
@@ -32,33 +46,11 @@
  <div id="map"></div>
  
  <script>
-  const arrObj = []
-
-     function saveData(){
-     
-         let title = document.getElementById("title").value
-         let description = document.getElementById("description").value
-        // console.log(title)
-          let slide = 0
-        let element = {}
-      
-        element.title = title
-        element.description = description
-        arrObj.push({element: element})
-        console.log(arrObj)
-        return false
-         /* for (let i =0 ; i < title.length; i++){
-             arrTitles[i] = title[i].value;
-            console.log(title[i].value)
-         }
-         for (let j =0 ; j < title.length; j++){
-             arrDescriptions[j] = description[j].value;
-             console.log(description[j].value)
-     } */
-     }
-
-
-
+  
+let title = ""
+let description = ""
+let longitude = ""
+let latitude = "" 
 
 
 
@@ -105,10 +97,66 @@ map.on('mousemove', function (e) {
 document.getElementById('info').innerHTML =
 // e.point is the x, y coordinates of the mousemove event relative
 // to the top-left corner of the map
-JSON.stringify(e.point) + '<br />' +
+//JSON.stringify(e.point) + '<br />' +
 // e.lngLat is the longitude, latitude geographical position of the event
 JSON.stringify(e.lngLat.wrap());
+
+map.on('click', function (b){
+  let long = b.lngLat.lng
+  let lat = b.lngLat.lat
+
+  longitude = document.getElementById('long').value= b.lngLat.lng
+   latitude = document.getElementById('lat').value = b.lngLat.lat
+
+
+let popup = new mapboxgl.Popup({closeOnClick: true})
+.setLngLat([long, lat])
+.setHTML('<h1>Yout location</h1>')
+.addTo(map);
+
+  //console.log(b.lngLat.lng)
+  //console.log(b.lngLat.lat)
+
+})
 });
+
+const arrObj = []
+
+     function saveData(){
+     
+          title = document.getElementById("title").value
+          description = document.getElementById("description").value
+         
+        // console.log(title)
+          let slide = 0
+        let element = {}
+      
+        element.title = title
+        element.description = description
+       element.longitude = longitude
+        element.latitude = latitude
+        arrObj.push({element: element})
+        console.log(arrObj)
+        return false
+         
+     }
+
+/*map.on('click', addMarker);
+
+function addMarker(e){
+  if (typeof circleMarker !== "undefined" ){ 
+    map.removeLayer(circleMarker);         
+  }
+  //add marker
+  circleMarker = new  L.circle(e.latlng, 200, {
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0.5
+            }).addTo(map);
+}*/
+
+
+
 
  </script>
  
