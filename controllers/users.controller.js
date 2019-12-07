@@ -106,9 +106,9 @@ module.exports.doLogin = (req, res, next) => {
                                 error: { password: 'invalid password' }
                             })
                         } else {
-                            req.session.user = user;
-                            req.session.genericSuccess = 'Welcome!'
-                            res.redirect('users/userDashboard');
+                            /*req.session.user = user;
+                            req.session.genericSuccess = 'Welcome!'*/
+                            res.render('users/userDashboard', {user: req.body});
                         }
                     })
                 //}
