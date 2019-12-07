@@ -12,11 +12,13 @@ module.exports = router;
 router.get('/home', baseController.index)
 router.get('/maps', baseController.show)
 router.get('/maps/new', mapsController.newMap)
-    // router.get('/', authMiddleware.isAuthenticated, mapsController.index)
-    // router.get('/maps/:id', authMiddleware.isAuthenticated, mapsController.show)
-    // router.post('/maps/:id/comments', authMiddleware.isAuthenticated, mapsController.addComment)
-    // router.post('/maps/:id/like', authMiddleware.isAuthenticated, mapsController.like)
-    // router.post('/maps', authMiddleware.isAuthenticated, upload.single('image'), mapsController.create)
+router.post('/maps', mapsController.create)
+
+// router.get('/', authMiddleware.isAuthenticated, mapsController.index)
+// router.get('/maps/:id', authMiddleware.isAuthenticated, mapsController.show)
+// router.post('/maps/:id/comments', authMiddleware.isAuthenticated, mapsController.addComment)
+// router.post('/maps/:id/like', authMiddleware.isAuthenticated, mapsController.like)
+// router.post('/maps', authMiddleware.isAuthenticated, upload.single('image'), mapsController.create)
 
 router.get('/users/new', /*authMiddleware.isNotAuthenticated,*/ usersController.new)
 router.post('/users', /*authMiddleware.isNotAuthenticated,upload.single('avatar'), */ usersController.create)

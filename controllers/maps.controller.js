@@ -2,11 +2,43 @@ const mongoose = require('mongoose');
 const Map = require('../models/maps.model');
 const User = require('../models/user.model');
 const Like = require('../models/like.model');
+const Slide = require('../models/slide.model');
 
 //newMap
 
 module.exports.newMap = (_, res) => {
     res.render('maps/new');
+}
+
+module.exports.create = (req, res, next) => {
+    const map = new Map({
+        user: req.session.user._id,
+        title: req.body.title,
+        description: req.body.description,
+        image: req.body.image,
+        cathegory: req.body.cathegory
+    })
+
+    map.save()
+        .then(map => {
+            const slidesData = req.body.slides.map(slide => {
+                return {
+                    title: slide.title,
+                    description: slide.description,
+                    image: slide.image,
+                    long: slide.long,
+                    lat: slide.lat,
+                    map: map._id
+                }
+            })
+
+            Slide.create(slidesData)
+                .then(slides => {
+                    res.json(map)
+                })
+                .catch(next)
+        })
+        .catch(next)
 }
 
 // const Comment = require('../models/comment.model');

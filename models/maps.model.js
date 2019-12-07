@@ -13,20 +13,14 @@ const mapsSchema = new mongoose.Schema({
         required: true
     },
     description: {
-        type: [String]
+        type: String
     },
     image: {
         type: String
     },
     cathegory: {
         type: String
-    },
-    slide:
-    [{
-       type:  mongoose.Schema.Types.ObjectId,
-       ref: 'Slide'
-   }],
-
+    }
 }, { timestamps: true })
 
 // mapsSchema.pre('save', function (next) {
