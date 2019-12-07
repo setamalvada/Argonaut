@@ -41,6 +41,21 @@ module.exports.create = (req, res, next) => {
         .catch(next)
 }
 
+
+
+module.exports.details = (req, res, next) => {
+    Map.findOne({ _id: req.params.id })
+        .then(map => {
+            if (!map) {
+                res.redirect('/home')
+            } else {
+                res.render('maps/details', { map })
+            }
+        })
+        .catch(next)
+}
+
+
 // const Comment = require('../models/comment.model');
 
 // module.exports.index = (req, res, next) => {

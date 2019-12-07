@@ -13,6 +13,7 @@ router.get('/home', baseController.index)
 router.get('/maps', baseController.show)
 router.get('/maps/new', mapsController.newMap)
 router.post('/maps', mapsController.create)
+router.get('/maps/:id', mapsController.details)
 
 // router.get('/', authMiddleware.isAuthenticated, mapsController.index)
 // router.get('/maps/:id', authMiddleware.isAuthenticated, mapsController.show)
