@@ -43,17 +43,51 @@ module.exports.create = (req, res, next) => {
 
 
 
+// module.exports.details = (req, res, next) => {
+//     Map.findOne({ _id: req.params.id })
+//         .then(map => {
+//             if (!map) {
+//                 res.redirect('/home')
+//             } else {
+//                 res.render('maps/details', { map })
+//             }
+//         })
+//         .catch(next)
+// }
+
 module.exports.details = (req, res, next) => {
-    Map.findOne({ _id: req.params.id })
-        .then(map => {
-            if (!map) {
-                res.redirect('/home')
-            } else {
-                res.render('maps/details', { map })
-            }
-        })
-        .catch(next)
-}
+    const id = req.params.id;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        next(createError(404));
+    } else {
+
+        Map.findById(id)
+            .then(
+                map => {
+                    res.render('maps/details', { map })
+                }
+            ).catch(
+                error => next(error)
+            );
+    }
+};
+
+
+module.exports.listMaps = (req, res, next) => {
+    Map.find()
+
+    .then(
+
+        maps => {
+            res.render('maps/index', { maps })
+
+        }
+
+    ).catch(
+        error => next(error)
+    );
+
+};
 
 
 // const Comment = require('../models/comment.model');
