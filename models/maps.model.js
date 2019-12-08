@@ -23,19 +23,6 @@ const mapsSchema = new mongoose.Schema({
     }
 }, { timestamps: true })
 
-
-
-mapsSchema.virtual('slides', {
-    ref: 'Slide',
-    localField: '_id',
-    foreignField: 'map',
-    justOne: false
-})
-
-const Map = mongoose.model('Map', mapsSchema);
-
-module.exports = Map;
-
 // mapsSchema.pre('save', function (next) {
 //   this.hashtags = this.body.match(/#[a-z]+/gi);
 //   next()
@@ -54,3 +41,14 @@ module.exports = Map;
 //   foreignField: 'tweet',
 //   justOne: false,
 // });
+
+mapsSchema.virtual('slides', {
+    ref: 'Slide',
+    localField: '_id',
+    foreignField: 'map',
+    justOne: false
+})
+
+const Map = mongoose.model('Map', mapsSchema);
+
+module.exports = Map;
