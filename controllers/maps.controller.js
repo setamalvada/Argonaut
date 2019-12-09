@@ -22,6 +22,7 @@ module.exports.create = (req, res, next) => {
     map.save()
         .then(map => {
             const slidesData = req.body.slides.map(slide => {
+
                 return {
                     title: slide.title,
                     description: slide.description,
@@ -30,8 +31,9 @@ module.exports.create = (req, res, next) => {
                     lat: slide.lat,
                     map: map._id
                 }
-            })
 
+            })
+            console.log(slidesData)
             Slide.create(slidesData)
                 .then(slides => {
                     res.json(map)

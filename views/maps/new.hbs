@@ -38,13 +38,13 @@
 
         <div class="form-group">
             <label for="long">Longitude</label>
-            <input name="long" type="number" step="0.00000000000001" class="form-control title" id="long"
+            <input name="long" type="number" step="any" class="form-control title" id="long"
              value="long">
             </div>
 
         <div class="form-group">
             <label for="lat">Latitude</label>
-            <input name="lat" type="number" step="0.00000000000001" class="form-control title" id="lat"
+            <input name="lat" type="number" step="any" class="form-control title" id="lat"
              value="lat">
              
             </div>    
@@ -125,10 +125,12 @@ JSON.stringify(e.lngLat.wrap());
 map.on('click', function (b){
   let long = b.lngLat.lng
   let lat = b.lngLat.lat
+  console.log(long)
 
   longitude = Number(document.getElementById('long').value= b.lngLat.lng)
    latitude = Number(document.getElementById('lat').value = b.lngLat.lat)
 
+console.log(longitude)
 
 let popup = new mapboxgl.Popup({closeOnClick: true})
 .setLngLat([long, lat])
@@ -185,21 +187,6 @@ const mapObj = []
         return false
 
      }
-
-/*map.on('click', addMarker);
-
-function addMarker(e){
-  if (typeof circleMarker !== "undefined" ){ 
-    map.removeLayer(circleMarker);         
-  }
-  //add marker
-  circleMarker = new  L.circle(e.latlng, 200, {
-                color: 'red',
-                fillColor: '#f03',
-                fillOpacity: 0.5
-            }).addTo(map);
-}*/
-
 
 
 
