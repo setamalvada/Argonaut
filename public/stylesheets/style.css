@@ -23,20 +23,42 @@ label {
 
 #map {
     position: relative;
-    top: -840px;
+    /*top: -840px;*/
     width: 100%;
     height: 800px;
-    z-index: -100;
     /* height: 800px; */
+}
+
+.marker {
+    background-image: url('<img src="https://img.icons8.com/office/16/000000/marker.png">');
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#slides_container {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    width: 320px;
+    padding: 40px;
+    padding-right: 20px;
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 10
 }
 
 
 /* Slideshow container */
 
-.blog-slider__container {
+
+/* .blog-slider__container {
     width: 300px;
     position: relative;
-    /* top: 610px; */
+    top: 610px;
     margin: 10px, 10px 10px 10px;
     height: 800px;
     background-color: red;
@@ -49,7 +71,6 @@ label {
 }
 
 
-/* Next & previous buttons */
 
 .prev,
 .next {
@@ -68,7 +89,6 @@ label {
 }
 
 
-/* Position the "next button" to the right */
 
 .next {
     right: 0;
@@ -76,7 +96,6 @@ label {
 }
 
 
-/* On hover, add a black background color with a little bit see-through */
 
 .prev:hover,
 .next:hover {
@@ -84,7 +103,6 @@ label {
 }
 
 
-/* Caption text */
 
 .blog-slider__text {
     color: #f2f2f2;
@@ -97,7 +115,6 @@ label {
 }
 
 
-/* Number text (1/3 etc) */
 
 .blog-slider__numbertext {
     color: #f2f2f2;
@@ -108,7 +125,7 @@ label {
 }
 
 
-/* The dots/bullets/indicators */
+
 
 .blogSlider__dots {
     text-align: center;
@@ -130,7 +147,7 @@ label {
 }
 
 
-/* Fading animation */
+
 
 .fade {
     -webkit-animation-name: fade;
@@ -155,4 +172,84 @@ label {
     to {
         opacity: 1
     }
+} */
+
+
+/* The container */
+
+.container-radio {
+    position: relative;
+    padding-left: 30px;
+    padding-right: 20px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+/* Hide the browser's default radio button */
+
+.container-radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+
+/* Create a custom radio button */
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 16px;
+    width: 16px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+
+/* On mouse-over, add a grey background color */
+
+.container-radio:hover input~.checkmark {
+    background-color: #ccc;
+}
+
+
+/* When the radio button is checked, add a blue background */
+
+.container-radio input:checked~.checkmark {
+    background-color: #2196F3;
+}
+
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+
+/* Show the indicator (dot/circle) when checked */
+
+.container-radio input:checked~.checkmark:after {
+    display: block;
+}
+
+
+/* Style the indicator (dot/circle) */
+
+.container-radio .checkmark:after {
+    top: 4px;
+    left: 4px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
 }

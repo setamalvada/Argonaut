@@ -1,0 +1,202 @@
+ {{!-- <form action="/maps" method="POST" > --}}
+
+<div>
+
+   <form onsubmit="return saveMapData()">
+          <div class="form-group">
+            <label for="mapTitle">Enter map title</label>
+            <input name="mapTitle" type="text" class="form-control title" id="mapTitle"
+            placeholder="Enter title" value="mapTitle">
+            </div>
+
+            <div class="form-group">
+            <label for="mapDescription">Enter map description</label>
+            <textarea name="mapDescription" type="text" class="form-control description"  id="mapDescription"
+            placeholder="Enter text" value="mapDescription" rows="4"></textarea>
+
+            
+        </div>
+
+       
+<input type="submit" value="submit">
+</form>
+
+ <form onsubmit="return saveData()">
+          <div class="form-group">
+            <label for="title">Enter slide title</label>
+            <input name="title" type="text" class="form-control title" id="title"
+            placeholder="Enter title" value="title">
+            </div>
+
+            <div class="form-group">
+            <label for="description">Your text</label>
+            <textarea name="description" type="text" class="form-control description"  id="description"
+            placeholder="Enter text" value="description" rows="4"></textarea>
+
+            
+        </div>
+
+        <div class="form-group">
+            <label for="long">Longitude</label>
+            <input name="long" type="number" step="any" class="form-control title" id="long"
+             value="long">
+            </div>
+
+        <div class="form-group">
+            <label for="lat">Latitude</label>
+            <input name="lat" type="number" step="any" class="form-control title" id="lat"
+             value="lat">
+             
+            </div>    
+
+
+<input type="submit" value="submit">
+</form>
+  <button type="button" class="btn btn-primary" id="create-map-btn">
+    Create map
+  </button>
+
+</div>
+
+<br>
+<br>
+
+
+<pre id='info'></pre>
+ <div id="map"></div>
+ 
+ <script>
+  
+let title = ""
+let description = ""
+let longitude = 0
+let latitude = 0 
+let mapTitle = ""
+let mapDescription = ""
+
+
+      mapboxgl.accessToken = 'pk.eyJ1IjoiaXJvbm1vZHVsZTIiLCJhIjoiY2szZnQzdzN0MDdzNjNjbzQ5amZ5M24wMyJ9.1AdiIc2dD4lw7Toih03G0Q';
+
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [-77.04, 38.907],
+            zoom: 11.15,
+        });
+
+        console.log(map)
+
+        map.on('load', function() {
+            map.loadImage('https://img.icons8.com/android/24/000000/marker.png', function(error, image) {
+                if (error) throw error;
+                map.addImage('marker', image);
+                map.addLayer({
+                    "id": "points",
+                    "type": "symbol",
+                    "source": {
+                        "type": "geojson",
+                        "data": {
+                            "type": "FeatureCollection",
+                            "features": [{
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [0, 0]
+                                }
+                            }]
+                        }
+                    },
+                    "layout": {
+                        "icon-image": "marker",
+                        "icon-size": 1
+                    }
+                });
+            });
+        });
+
+map.on('mousemove', function (e) {
+document.getElementById('info').innerHTML =
+// e.point is the x, y coordinates of the mousemove event relative
+// to the top-left corner of the map
+//JSON.stringify(e.point) + '<br />' +
+// e.lngLat is the longitude, latitude geographical position of the event
+JSON.stringify(e.lngLat.wrap());
+
+map.on('click', function (b){
+  let long = b.lngLat.lng
+  let lat = b.lngLat.lat
+  console.log(long)
+
+  longitude = Number(document.getElementById('long').value= b.lngLat.lng)
+   latitude = Number(document.getElementById('lat').value = b.lngLat.lat)
+
+console.log(longitude)
+
+let popup = new mapboxgl.Popup({closeOnClick: true})
+.setLngLat([long, lat])
+.setHTML('<h1>Your location</h1>')
+.addTo(map);
+
+  //console.log(b.lngLat.lng)
+  //console.log(b.lngLat.lat)
+
+})
+});
+
+const arrObj = []
+const mapObj = []
+
+     function saveData(){
+     
+           
+
+
+          title = document.getElementById("title").value
+          description = document.getElementById("description").value
+         
+        // console.log(title)
+          let slide = 0
+        let element = {}
+       
+      
+
+     
+        element.title = title
+        element.description = description
+       element.long = longitude
+        element.lat = latitude
+        arrObj.push({...element})
+       
+        console.log(arrObj)
+        return false
+         
+     }
+
+     function saveMapData(){
+
+       mapTitle = document.getElementById("mapTitle").value
+          mapDescription = document.getElementById("mapDescription").value
+
+ let mapElement = {}
+           mapElement.title = mapTitle
+        mapElement.description = mapDescription
+
+         mapObj.push({...mapElement})
+
+         console.log(mapObj)
+        return false
+
+     }
+
+
+
+ </script>
+
+ <script src="/js/mapbox.js"></script>
+ 
+ 
+ 
+ 
+ 
+ 
+ 

@@ -1,0 +1,154 @@
+
+
+{{!-- <div id='menu'>
+<input id='streets-v11' type='radio' name='rtoggle' value='streets' checked='checked'>
+<label for='streets'>streets</label>
+<input id='light-v10' type='radio' name='rtoggle' value='light'>
+<label for='light'>light</label>
+<input id='dark-v10' type='radio' name='rtoggle' value='dark'>
+<label for='dark'>dark</label>
+<input id='outdoors-v11' type='radio' name='rtoggle' value='outdoors'>
+<label for='outdoors'>outdoors</label>
+<input id='satellite-v9' type='radio' name='rtoggle' value='satellite'>
+<label for='satellite'>satellite</label>
+</div> --}}
+
+
+<div id='menu'>
+<label class="container-radio">Streets
+  <input  id='streets-v11' type='radio' name='rtoggle' value='streets' checked='checked'>
+  <span class="checkmark"></span>
+</label>
+<label class="container-radio">Light
+  <input id='light-v10' type='radio' name='rtoggle' value='light'>
+  <span class="checkmark"></span>
+</label>
+<label class="container-radio">Dark
+  <input id='dark-v10' type='radio' name='rtoggle' value='dark'>
+  <span class="checkmark"></span>
+</label>
+<label class="container-radio">Outdoors
+  <input id='outdoors-v11' type='radio' name='rtoggle' value='outdoors'>
+  <span class="checkmark"></span>
+</label>  
+<label class="container-radio">Satellite
+  <input id='satellite-v9' type='radio' name='rtoggle' value='satellite'>
+  <span class="checkmark"></span>  
+</label>
+</div>
+
+
+
+<div id="map">
+
+
+ {{#each map.slides as |s|}}
+
+<div id="slides_container" style="display:block;">
+    {{!-- <div id="dots"></div>
+
+    <div id="slides"></div> --}}
+   
+    <h1>
+    {{s.title}}        
+    </h1>
+
+    <p>
+   {{s.description}} 
+    </p>
+
+
+    {{!-- <p>
+   {{s.long}} 
+    </p>
+
+      <p>
+   {{s.lat}} 
+    </p> --}}
+
+<input id="long" value={{s.long}} type="hidden">
+<input id="lat" value={{s.lat}} type="hidden">
+
+
+    <ul id="navButtons">
+      <li><a class="prev"></a></li>
+      <li><a class="next"></a></li>
+    </ul>
+  </div>
+
+
+{{/each}}
+
+</div>
+
+
+
+
+{{!-- 5debafdedf9f632928e59250 --}}
+
+
+
+
+<script>
+
+
+let long= 0
+let lat= 0     
+
+long= document.getElementById('long').value
+console.log(long)
+lat = document.getElementById('lat').value 
+
+
+
+mapboxgl.accessToken = 'pk.eyJ1IjoiaXJvbm1vZHVsZTIiLCJhIjoiY2szZnQzdzN0MDdzNjNjbzQ5amZ5M24wMyJ9.1AdiIc2dD4lw7Toih03G0Q';
+
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [long, lat],
+            
+            zoom: 9.0,
+        });
+
+        let layerList = document.getElementById('menu');
+let inputs = layerList.getElementsByTagName('input');
+ 
+function switchLayer(layer) {
+let layerId = layer.target.id;
+map.setStyle('mapbox://styles/mapbox/' + layerId);
+}
+ 
+for (let i = 0; i < inputs.length; i++) {
+inputs[i].onclick = switchLayer;
+}
+
+        map.on('load', function() {
+            map.loadImage('https://img.icons8.com/android/24/000000/marker.png', function(error, image) {
+                if (error) throw error;
+                map.addImage('marker', image);
+                map.addLayer({
+                    "id": "points",
+                    "type": "symbol",
+                    "source": {
+                        "type": "geojson",
+                        "data": {
+                            "type": "FeatureCollection",
+                            "features": [{
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [0, 0]
+                                }
+                            }]
+                        }
+                    },
+                    "layout": {
+                        "icon-image": "marker",
+                        "icon-size": 1
+                    }
+                });
+            });
+        });    
+
+</script>
