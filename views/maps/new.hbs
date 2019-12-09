@@ -38,14 +38,15 @@
 
         <div class="form-group">
             <label for="long">Longitude</label>
-            <input name="long" type="text" class="form-control title" id="long"
+            <input name="long" type="number" step="0.00000000000001" class="form-control title" id="long"
              value="long">
             </div>
 
         <div class="form-group">
             <label for="lat">Latitude</label>
-            <input name="lat" type="text" class="form-control title" id="lat"
+            <input name="lat" type="number" step="0.00000000000001" class="form-control title" id="lat"
              value="lat">
+             
             </div>    
 
 
@@ -68,8 +69,8 @@
   
 let title = ""
 let description = ""
-let longitude = ""
-let latitude = "" 
+let longitude = 0
+let latitude = 0 
 let mapTitle = ""
 let mapDescription = ""
 
@@ -125,8 +126,8 @@ map.on('click', function (b){
   let long = b.lngLat.lng
   let lat = b.lngLat.lat
 
-  longitude = document.getElementById('long').value= b.lngLat.lng
-   latitude = document.getElementById('lat').value = b.lngLat.lat
+  longitude = Number(document.getElementById('long').value= b.lngLat.lng)
+   latitude = Number(document.getElementById('lat').value = b.lngLat.lat)
 
 
 let popup = new mapboxgl.Popup({closeOnClick: true})
