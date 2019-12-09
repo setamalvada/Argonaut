@@ -58,6 +58,8 @@
     </p>
 
 
+    <img src="{{s.image}}">
+
     {{!-- <p>
    {{s.long}} 
     </p>
@@ -110,6 +112,9 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiaXJvbm1vZHVsZTIiLCJhIjoiY2szZnQzdzN0MDdzNjNjb
             
             zoom: 9.0,
         });
+
+map.addControl(new mapboxgl.FullscreenControl());
+        map.addControl(new mapboxgl.NavigationControl());
 
         let layerList = document.getElementById('menu');
 let inputs = layerList.getElementsByTagName('input');

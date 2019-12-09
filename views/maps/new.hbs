@@ -29,12 +29,19 @@
             </div>
 
             <div class="form-group">
-            <label for="description">Your text</label>
+            <label for="description">Enter slide text</label>
             <textarea name="description" type="text" class="form-control description"  id="description"
-            placeholder="Enter text" value="description" rows="4"></textarea>
+            placeholder="Enter text" value="description" rows="4">Enter text</textarea>
 
             
         </div>
+
+
+        <div class="form-group">
+            <label for="image">Enter image url</label>
+            <input name="image" type="text" class="form-control image" id="image"
+            placeholder="Enter image" value="image">
+            </div>
 
         <div class="form-group">
             <label for="long">Longitude</label>
@@ -69,6 +76,7 @@
   
 let title = ""
 let description = ""
+let image = ""
 let longitude = 0
 let latitude = 0 
 let mapTitle = ""
@@ -84,6 +92,8 @@ let mapDescription = ""
             zoom: 11.15,
         });
 
+        
+map.addControl(new mapboxgl.NavigationControl());
         console.log(map)
 
         map.on('load', function() {
@@ -153,6 +163,7 @@ const mapObj = []
 
           title = document.getElementById("title").value
           description = document.getElementById("description").value
+          image = document.getElementById("image").value
          
         // console.log(title)
           let slide = 0
@@ -163,6 +174,7 @@ const mapObj = []
      
         element.title = title
         element.description = description
+        element.image = image
        element.long = longitude
         element.lat = latitude
         arrObj.push({...element})
