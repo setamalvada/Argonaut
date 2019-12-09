@@ -62,6 +62,7 @@ module.exports.details = (req, res, next) => {
     } else {
 
         Map.findById(id)
+            .populate('slides')
             .then(
                 map => {
                     res.render('maps/details', { map })
@@ -71,6 +72,38 @@ module.exports.details = (req, res, next) => {
             );
     }
 };
+
+
+
+
+// module.exports.details = (req, res, next) => {
+//     const id = req.params.id;
+//     if (!mongoose.Types.ObjectId.isValid(id)) {
+//         next(createError(404));
+//     } else {
+
+//         Map.findById(id)
+//             .then(
+//                 map => {
+//                     res.render('maps/details', { map })
+
+//                 }
+//             ).catch(
+//                 error => next(error)
+//             );
+
+//         Slide.find({ map: id })
+//             .then(
+//                 slide => {
+//                     res.render('maps/details', { slide })
+//                 }
+
+//             ).catch(
+//                 error => next(error)
+//             );
+
+//     }
+// };
 
 
 module.exports.listMaps = (req, res, next) => {

@@ -5,16 +5,21 @@
 
 <div id="map">
 
+
+ {{#each map.slides as |s|}}
+
 <div id="slides_container" style="display:block;">
     {{!-- <div id="dots"></div>
 
     <div id="slides"></div> --}}
+   
     <h1>
-        
+    {{s.title}}        
     </h1>
 
     <p>
-    {{slides.title}}    
+   {{s.description}} 
+    
 
     </p>
 
@@ -25,7 +30,7 @@
   </div>
 
 
-
+{{/each}}
 
 </div>
 
