@@ -1,29 +1,28 @@
+ 
 const mongoose = require('mongoose');
 require('./texts.model')
 require('./like.model')
 
-const mapsSchema = new mongoose.Schema({
+const slideSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
     },
     description: {
-        type: [String]
+        type: String
     },
     image: {
         type: String
     },
     long: {
-      type: {type: Number, max:180, min: -180, default: 0},
-      required: true
+         type: Number, max: 180, min: -180, default: 0 
     },
     lat: {
-      type: {type: Number, max:90, min: -90, default: 0},
-      required: true,      
+         type: Number, max: 90, min: -90, default: 0 
     },
-    map:{
-      type:  mongoose.Schema.Types.ObjectId,
-       ref: 'Map'
+    map: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Map'
     }
 
 }, { timestamps: true })
@@ -47,6 +46,6 @@ const mapsSchema = new mongoose.Schema({
 //   justOne: false,
 // });
 
-const Map = mongoose.model('Map', mapsSchema);
+const Slide = mongoose.model('Slide', slideSchema);
 
-module.exports = Map;
+module.exports = Slide;

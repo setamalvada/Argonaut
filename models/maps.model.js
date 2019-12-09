@@ -13,19 +13,14 @@ const mapsSchema = new mongoose.Schema({
         required: true
     },
     description: {
-        type: [String]
+        type: String
     },
     image: {
         type: String
     },
     cathegory: {
         type: String
-    },
-    slide:
-    [{
-       type:  mongoose.Schema.Types.ObjectId,
-       ref: 'Slide'
-   }],
+    }
 
 }, { timestamps: true })
 
@@ -47,6 +42,13 @@ const mapsSchema = new mongoose.Schema({
 //   foreignField: 'tweet',
 //   justOne: false,
 // });
+
+mapsSchema.virtual('slides', {
+    ref: 'Slide',
+    localField: '_id',
+    foreignField: 'map',
+    justOne: false
+})
 
 const Map = mongoose.model('Map', mapsSchema);
 

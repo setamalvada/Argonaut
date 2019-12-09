@@ -1,6 +1,93 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+{{!-- new map --}}
+<div class="container">
+  <div class="col-xs-7 ml-5 text-center">
+        <h4 class="text-info">Create a new map from scratch</h4>
+        <img class="card-img-top" src="../../images/map.png" alt="Card image cap">
+        {{!-- <button type="button" class="btn btn-outline-info btn-block">Start</button> --}}
+        <a href="/maps/new"> <button type="button" class="btn btn-outline-info btn-block">Start</button></a>
+  </div>
+{{!-- Profile --}}
+
+  <div class="col-xs-3 ml-5 mt-4 text-center bord-rad">
+          <img class="card-img-top w-75" src="/../../images/avataaars.png" alt="Card image cap">
+          <h4 class="text-info">Hi, {{currentUser.name}}!</h4> 
+          <ul class="list-unstyled">
+            <li><button type="button" class="btn btn-outline-info">Edit your profile</button></li>
+            <li><button type="button" class="btn btn-outline-info">Change password</button></li>
+            <li><a href="https://docs.mapbox.com/" target="_blank" class="btn btn-outline-info">Documentation</a></li>
+            <li><a href="https://docs.mapbox.com/help/" target="_blank" class="btn btn-outline-info">Help</a></li>
+          </ul> 
+  </div>
+  {{!-- User maps slider --}}
+  <div class="col-xs-12 mt-5 ml-5">
+          <div class="w-50">
+            <h3 class="text-info text-center">Take a quick look at your maps</h3>
+          </div>
+          <div class="row">
+            <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
+                    <div class="MultiCarousel-inner">
+                        <div class="item">
+                            <div class="pad15">
+                                <img class="card-img-top" src="../../images/example.jpg" alt="Card image cap">
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <div class="btn-group">
+                                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                  </div>
+                                  <small class="text-muted">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="pad15">
+                                <img class="card-img-top" src="../../images/example.jpg" alt="Card image cap">
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <div class="btn-group">
+                                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                  </div>
+                                  <small class="text-muted">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="pad15">
+                                <img class="card-img-top" src="../../images/example.jpg" alt="Card image cap">
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <div class="btn-group">
+                                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                  </div>
+                                  <small class="text-muted">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="pad15">
+                                <img class="card-img-top" src="../../images/example.jpg" alt="Card image cap">
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <div class="btn-group">
+                                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                  </div>
+                                  <small class="text-muted">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary leftLst"><</button>
+                    <button class="btn btn-primary rightLst">></button>
+              </div>
+          </div>
+  </div>
+
+  
+</div>
+
 <!------ Include the above in your HEAD tag ---------->
 <script>
   $(document).ready(function () {
@@ -105,93 +192,5 @@
 
 });
 </script>
-<div class="text-center">
-  <h1 class="blue-let">Welcome to your Argospace!</h1>
-</div>
-<div class="container">
-  <div class="col-xs-7 ml-5 text-center">
-        <h4 class="text-info">Create a new map from scratch</h4>
-        <img class="card-img-top" src="../../images/map.png" alt="Card image cap">
-        <button type="button" class="btn btn-outline-info btn-block">Start</button>
-  </div>
-
-  <div class="col-xs-3 ml-5 mt-4 text-center bord-rad">
-          <img class="card-img-top w-75" src="/../../images/avataaars.png" alt="Card image cap">
-          <h4 class="text-info">Hi, {{user.name}}</h4>
-          <ul class="list-unstyled">
-            <li><button type="button" class="btn btn-outline-info">Edit your profile</button></li>
-            <li><button type="button" class="btn btn-outline-info">Change password</button></li>
-            <li><a href="https://docs.mapbox.com/" target="_blank" class="btn btn-outline-info">Documentation</a></li>
-            <li><a href="https://docs.mapbox.com/help/" target="_blank" class="btn btn-outline-info">Help</a></li>
-          </ul> 
-  </div>
-  
-  <div class="col-xs-12 mt-5 ml-5">
-          <div class="w-50">
-            <h3 class="text-info text-center">Take a quick look at your maps</h3>
-          </div>
-          <div class="row">
-            <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
-                    <div class="MultiCarousel-inner">
-                        <div class="item">
-                            <div class="pad15">
-                                <img class="card-img-top" src="../../images/example.jpg" alt="Card image cap">
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                  <div class="btn-group">
-                                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                  </div>
-                                  <small class="text-muted">9 mins</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="pad15">
-                                <img class="card-img-top" src="../../images/example.jpg" alt="Card image cap">
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                  <div class="btn-group">
-                                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                  </div>
-                                  <small class="text-muted">9 mins</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="pad15">
-                                <img class="card-img-top" src="../../images/example.jpg" alt="Card image cap">
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                  <div class="btn-group">
-                                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                  </div>
-                                  <small class="text-muted">9 mins</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="pad15">
-                                <img class="card-img-top" src="../../images/example.jpg" alt="Card image cap">
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                  <div class="btn-group">
-                                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                  </div>
-                                  <small class="text-muted">9 mins</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="btn btn-primary leftLst"><</button>
-                    <button class="btn btn-primary rightLst">></button>
-              </div>
-          </div>
-  </div>
-
-  
-</div>
-
+{{!-- header --}}
+    

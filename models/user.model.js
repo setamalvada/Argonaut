@@ -46,7 +46,7 @@ const userSchema = new mongoose.Schema({
     //     minlength: [8, 'Password needs at last 8 chars']
     // },
     avatar: {
-        type: String,
+        type: String
     },
     bio: {
         type: String

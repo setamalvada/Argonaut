@@ -1,4 +1,4 @@
-mapboxgl.accessToken = 'pk.eyJ1IjoiaXJvbm1vZHVsZTIiLCJhIjoiY2szZnQzdzN0MDdzNjNjbzQ5amZ5M24wMyJ9.1AdiIc2dD4lw7Toih03G0Q';
+/*mapboxgl.accessToken = 'pk.eyJ1IjoiaXJvbm1vZHVsZTIiLCJhIjoiY2szZnQzdzN0MDdzNjNjbzQ5amZ5M24wMyJ9.1AdiIc2dD4lw7Toih03G0Q';
 
 const map = new mapboxgl.Map({
     container: 'map',
@@ -90,4 +90,19 @@ document.getElementById('fly2').addEventListener('click', function() {
             40 + (Math.random() - 0.5) * 10
         ]
     });
-});
+});*/
+
+window.onload = () => {
+    document.getElementById('create-map-btn').addEventListener('click', createMap)
+}
+
+function createMap() {
+    const map = {
+        title: 'dummy map',
+        slides: arrObj
+    }
+
+    axios.post('/maps', map)
+        .then(response => window.location.assign('/home'))
+        .catch(err => console.log(err))
+}

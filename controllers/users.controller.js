@@ -15,7 +15,7 @@ module.exports.new = (_, res) => {
          email: req.body.email,
          password: req.body.password,
          repeatPassword: req.body.repeatPassword,
-         //avatar: req.file ? req.file.url : undefined,
+         avatar: req.file ? req.file.url : undefined,
          bio: req.body.bio
      })
 
@@ -23,7 +23,7 @@ module.exports.new = (_, res) => {
 
     user.save()
                 .then((user) => {
-                    // mailer.sendValidateEmail(user)
+                    mailer.sendValidateEmail(user)
                     res.redirect('/login')
                 })
                 .catch(error => {
@@ -54,7 +54,7 @@ module.exports.validate = (req, res, next) => {
                     })
                     .catch(next)
             } else {
-                res.redirect('/')
+                res.redirect('users/new')
             }
         })
         .catch(next)
@@ -64,18 +64,18 @@ module.exports.login = (_, res) => {
     res.render('users/login')
 }
 
-// module.exports.doSocialLogin = (req, res, next) => {
-//     const socialProvider = req.params.provider
+module.exports.doSocialLogin = (req, res, next) => {
+    const socialProvider = req.params.provider
 
-//     passport.authenticate(`${socialProvider}-auth`, (error, user) => {
-//         if (error) {
-//             next(error);
-//         } else {
-//             req.session.user = user;
-//             res.redirect('/')
-//         }
-//     })(req, res, next);
-// }
+    passport.authenticate(`${socialProvider}-auth`, (error, user) => {
+        if (error) {
+            next(error);
+        } else {
+            req.session.user = user;
+            res.redirect('/')
+        }
+    })(req, res, next);
+}
 
 module.exports.doLogin = (req, res, next) => {
     const { email, password/*, repeatPassword */} = req.body
@@ -106,8 +106,8 @@ module.exports.doLogin = (req, res, next) => {
                                 error: { password: 'invalid password' }
                             })
                         } else {
-                            /*req.session.user = user;
-                            req.session.genericSuccess = 'Welcome!'*/
+                            req.session.user = user;
+                            // req.session.genericSuccess = 'Welcome!'
                             res.render('users/userDashboard', {user: req.body});
                         }
                     })

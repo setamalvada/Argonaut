@@ -1,0 +1,46 @@
+
+
+<div href="/maps/{{ map.id }}" id="map"></div>
+
+{{!-- 5debafdedf9f632928e59250 --}}
+
+
+
+
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiaXJvbm1vZHVsZTIiLCJhIjoiY2szZnQzdzN0MDdzNjNjbzQ5amZ5M24wMyJ9.1AdiIc2dD4lw7Toih03G0Q';
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [-77.04, 38.907],
+            zoom: 9.0,
+        });
+        
+        map.on('load', function() {
+            map.loadImage('https://img.icons8.com/android/24/000000/marker.png', function(error, image) {
+                if (error) throw error;
+                map.addImage('marker', image);
+                map.addLayer({
+                    "id": "points",
+                    "type": "symbol",
+                    "source": {
+                        "type": "geojson",
+                        "data": {
+                            "type": "FeatureCollection",
+                            "features": [{
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [0, 0]
+                                }
+                            }]
+                        }
+                    },
+                    "layout": {
+                        "icon-image": "marker",
+                        "icon-size": 1
+                    }
+                });
+            });
+        });    
+</script>
