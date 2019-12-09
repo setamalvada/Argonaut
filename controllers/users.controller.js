@@ -72,7 +72,7 @@ module.exports.doSocialLogin = (req, res, next) => {
             next(error);
         } else {
             req.session.user = user;
-            res.redirect('/')
+            res.redirect('/users/userDashboard')
         }
     })(req, res, next);
 }

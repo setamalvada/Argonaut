@@ -34,7 +34,7 @@ router.get('/users/profile', authMiddleware.isAuthenticated, usersController.cre
 
 router.post('/google', authMiddleware.isNotAuthenticated, passport.authenticate('google-auth', { scope: ['openid', 'profile', 'email'] }));
 // router.post('/facebook', authMiddleware.isNotAuthenticated, passport.authenticate('facebook-auth', { scope: ['email'] }));
-// router.post('/slack', authMiddleware.isNotAuthenticated, passport.authenticate('slack-auth'));
+//router.post('/slack', authMiddleware.isNotAuthenticated, passport.authenticate('slack-auth'));
 router.get('/callback/:provider', authMiddleware.isNotAuthenticated, usersController.doSocialLogin);
 
 // router.get('/:username', authMiddleware.isAuthenticated, mapsController.profile)
