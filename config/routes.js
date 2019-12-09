@@ -10,10 +10,14 @@ const upload = require('./cloudinary.config');
 module.exports = router;
 
 router.get('/home', baseController.index)
-router.get('/maps', baseController.show)
+    // router.get('/maps', baseController.show)
 router.get('/maps/new', mapsController.newMap)
 router.post('/maps', mapsController.create)
 router.get('/maps/:id', mapsController.details)
+
+// Lista de mapas router.get('/celebrities', controller.listCelebrities)
+
+router.get('/maps', mapsController.listMaps)
 
 // router.get('/', authMiddleware.isAuthenticated, mapsController.index)
 // router.get('/maps/:id', authMiddleware.isAuthenticated, mapsController.show)

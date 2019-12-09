@@ -1,6 +1,52 @@
 
 
-<div href="/maps/{{ map.id }}" id="map"></div>
+
+
+
+<div id="map">
+
+
+ {{#each map.slides as |s|}}
+
+<div id="slides_container" style="display:block;">
+    {{!-- <div id="dots"></div>
+
+    <div id="slides"></div> --}}
+   
+    <h1>
+    {{s.title}}        
+    </h1>
+
+    <p>
+   {{s.description}} 
+    </p>
+
+
+    <p>
+   {{s.long}} 
+    </p>
+
+      <p>
+   {{s.lat}} 
+    </p>
+
+{{!-- <input id="long" value={{s.long}}/>
+<p id="lat">{{s.lat}}</p> --}}
+
+
+    <ul id="navButtons">
+      <li><a class="prev"></a></li>
+      <li><a class="next"></a></li>
+    </ul>
+  </div>
+
+
+{{/each}}
+
+</div>
+
+
+
 
 {{!-- 5debafdedf9f632928e59250 --}}
 
@@ -9,12 +55,22 @@
 
 <script>
 
+
+let longitude = ""
+let latitude = 0     
+
+longitude = document.getElementById('long').value
+console.log(longitude)
+latitude = Number(document.getElementById('lat').value)
+
+
+
 mapboxgl.accessToken = 'pk.eyJ1IjoiaXJvbm1vZHVsZTIiLCJhIjoiY2szZnQzdzN0MDdzNjNjbzQ5amZ5M24wMyJ9.1AdiIc2dD4lw7Toih03G0Q';
 
         const map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/streets-v11',
-            center: [-77.04, 38.907],
+            center: [longitude, latitude],
             zoom: 9.0,
         });
 

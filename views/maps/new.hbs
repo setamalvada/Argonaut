@@ -2,9 +2,28 @@
 
 <div>
 
+   <form onsubmit="return saveMapData()">
+          <div class="form-group">
+            <label for="mapTitle">Enter map title</label>
+            <input name="mapTitle" type="text" class="form-control title" id="mapTitle"
+            placeholder="Enter title" value="mapTitle">
+            </div>
+
+            <div class="form-group">
+            <label for="mapDescription">Enter map description</label>
+            <textarea name="mapDescription" type="text" class="form-control description"  id="mapDescription"
+            placeholder="Enter text" value="mapDescription" rows="4"></textarea>
+
+            
+        </div>
+
+       
+<input type="submit" value="submit">
+</form>
+
  <form onsubmit="return saveData()">
           <div class="form-group">
-            <label for="title">Enter title</label>
+            <label for="title">Enter slide title</label>
             <input name="title" type="text" class="form-control title" id="title"
             placeholder="Enter title" value="title">
             </div>
@@ -19,14 +38,15 @@
 
         <div class="form-group">
             <label for="long">Longitude</label>
-            <input name="long" type="text" class="form-control title" id="long"
+            <input name="long" type="number" step="any" class="form-control title" id="long"
              value="long">
             </div>
 
         <div class="form-group">
             <label for="lat">Latitude</label>
-            <input name="lat" type="text" class="form-control title" id="lat"
+            <input name="lat" type="number" step="any" class="form-control title" id="lat"
              value="lat">
+             
             </div>    
 
 
@@ -49,9 +69,10 @@
   
 let title = ""
 let description = ""
-let longitude = ""
-let latitude = "" 
-
+let longitude = 0
+let latitude = 0 
+let mapTitle = ""
+let mapDescription = ""
 
 
       mapboxgl.accessToken = 'pk.eyJ1IjoiaXJvbm1vZHVsZTIiLCJhIjoiY2szZnQzdzN0MDdzNjNjbzQ5amZ5M24wMyJ9.1AdiIc2dD4lw7Toih03G0Q';
@@ -104,10 +125,12 @@ JSON.stringify(e.lngLat.wrap());
 map.on('click', function (b){
   let long = b.lngLat.lng
   let lat = b.lngLat.lat
+  console.log(long)
 
-  longitude = document.getElementById('long').value= b.lngLat.lng
-   latitude = document.getElementById('lat').value = b.lngLat.lat
+  longitude = Number(document.getElementById('long').value= b.lngLat.lng)
+   latitude = Number(document.getElementById('lat').value = b.lngLat.lat)
 
+console.log(longitude)
 
 let popup = new mapboxgl.Popup({closeOnClick: true})
 .setLngLat([long, lat])
@@ -121,40 +144,49 @@ let popup = new mapboxgl.Popup({closeOnClick: true})
 });
 
 const arrObj = []
+const mapObj = []
 
      function saveData(){
      
+           
+
+
           title = document.getElementById("title").value
           description = document.getElementById("description").value
          
         // console.log(title)
           let slide = 0
         let element = {}
+       
       
+
+     
         element.title = title
         element.description = description
        element.longitude = longitude
         element.latitude = latitude
         arrObj.push({...element})
+       
         console.log(arrObj)
         return false
          
      }
 
-/*map.on('click', addMarker);
+     function saveMapData(){
 
-function addMarker(e){
-  if (typeof circleMarker !== "undefined" ){ 
-    map.removeLayer(circleMarker);         
-  }
-  //add marker
-  circleMarker = new  L.circle(e.latlng, 200, {
-                color: 'red',
-                fillColor: '#f03',
-                fillOpacity: 0.5
-            }).addTo(map);
-}*/
+       mapTitle = document.getElementById("mapTitle").value
+          mapDescription = document.getElementById("mapDescription").value
 
+ let mapElement = {}
+           mapElement.title = mapTitle
+        mapElement.description = mapDescription
+
+         mapObj.push({...mapElement})
+
+         console.log(mapObj)
+        return false
+
+     }
 
 
 

@@ -14,10 +14,16 @@ const slideSchema = new mongoose.Schema({
         type: String
     },
     long: {
-        type: { type: Number, max: 180, min: -180, default: 0 }
+        type: Number,
+        max: 180,
+        min: -180,
+
     },
     lat: {
-        type: { type: Number, max: 90, min: -90, default: 0 }
+        type: Number,
+        max: 90,
+        min: -90,
+
     },
     map: {
         type: mongoose.Schema.Types.ObjectId,
