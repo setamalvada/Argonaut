@@ -24,6 +24,7 @@ passport.use('slack-auth', new SlackStrategy({
 }, authenticateOAuthUser));
 */
 function authenticateOAuthUser(accessToken, refreshToken, profile, next) {
+    console.info('Profile => ', profile)
     User.findOne({
             [`social.${profile.provider.toLowerCase()}`]: profile.id
         })
@@ -33,8 +34,9 @@ function authenticateOAuthUser(accessToken, refreshToken, profile, next) {
             } else {
                 user = new User({
                     name: profile.displayName,
+                    surName: profile.name.familyName,
                     avatar: profile._json ? profile._json.picture : profile.user.image_72,
-                    username: profile.user.name,
+                    username: profile.name.givenName,
                     email: profile.emails ? profile.emails[0].value : profile.user.email,
                     validated: true,
                     password: profile.provider + Math.random().toString(36).substring(7),
