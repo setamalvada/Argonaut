@@ -22,25 +22,25 @@ module.exports.new = (_, res) => {
      console.log(user)
 
     user.save()
-                .then((user) => {
-                    mailer.sendValidateEmail(user)
-                    res.redirect('/login')
+        .then((user) => {
+            mailer.sendValidateEmail(user)
+            res.redirect('/login')
+        })
+        .catch(error => {
+            if (error instanceof mongoose.Error.ValidationError) {
+                res.render('users/new', { user, error: error.errors })
+            } else if (error.code === 11000) {
+                res.render('users/new', {
+                    user: {
+                        ...user,
+                        password: null
+                    },
+                    genericError: 'User exists'
                 })
-                .catch(error => {
-                    if (error instanceof mongoose.Error.ValidationError) {
-                        res.render('users/new', { user, error: error.errors })
-                    } else if (error.code === 11000) {
-                        res.render('users/new', {
-                            user: {
-                                ...user,
-                                password: null
-                            },
-                            genericError: 'User exists'
-                        })
-                    } else {
-                        next(error);
-                    }
-                })
+            } else {
+                next(error);
+            }
+        })
 }
 
 module.exports.validate = (req, res, next) => {
@@ -64,10 +64,10 @@ module.exports.login = (_, res) => {
     res.render('users/login')
 }
 
-module.exports.doSocialLogin = (req, res, next) => {
+module.exports.doGoogleLogin = (req, res, next) => {
     const socialProvider = req.params.provider
 
-    passport.authenticate(`${socialProvider}-auth`, (error, user) => {
+    passport.authenticate('google-auth', (error, user) => {
         if (error) {
             next(error);
         } else {
