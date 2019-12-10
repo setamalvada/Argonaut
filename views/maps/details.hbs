@@ -52,7 +52,15 @@
     </p>
 
 
-    <img src="{{s.image}}">
+
+ {{#if s.image}}
+    <img id="img" src="{{s.image}}">
+    {{/if}}
+
+
+
+
+    
 
     <input id="long-{{@index}}" value={{s.long}} type="hidden">
     <input id="lat-{{@index}}" value={{s.lat}} type="hidden">
@@ -89,6 +97,9 @@
 
 
 <script>
+
+
+
 
 
 
