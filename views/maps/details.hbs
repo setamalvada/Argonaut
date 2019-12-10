@@ -1,17 +1,6 @@
 
 
-{{!-- <div id='menu'>
-<input id='streets-v11' type='radio' name='rtoggle' value='streets' checked='checked'>
-<label for='streets'>streets</label>
-<input id='light-v10' type='radio' name='rtoggle' value='light'>
-<label for='light'>light</label>
-<input id='dark-v10' type='radio' name='rtoggle' value='dark'>
-<label for='dark'>dark</label>
-<input id='outdoors-v11' type='radio' name='rtoggle' value='outdoors'>
-<label for='outdoors'>outdoors</label>
-<input id='satellite-v9' type='radio' name='rtoggle' value='satellite'>
-<label for='satellite'>satellite</label>
-</div> --}}
+<h1>{{map.title}}</h1>
 
 
 <div id='menu'>
@@ -41,14 +30,19 @@
 
 <div id="map">
 
+<div id="slides_container" style="display:block;" >
 
  {{#each map.slides as |s|}}
 
-<div id="slides_container" style="display:block;">
+<div class="blogSlider__dots" style="text-align:center">
+  <span class="blogSlider__dots--dot" onclick="currentSlide(1)"></span> 
+ </div>
+
+
     {{!-- <div id="dots"></div>
 
     <div id="slides"></div> --}}
-   
+  <div class="blogSlides">
     <h1>
     {{s.title}}        
     </h1>
@@ -60,6 +54,10 @@
 
     <img src="{{s.image}}">
 
+    <input id="long-{{@index}}" value={{s.long}} type="hidden">
+    <input id="lat-{{@index}}" value={{s.lat}} type="hidden">
+
+</div>
     {{!-- <p>
    {{s.long}} 
     </p>
@@ -68,25 +66,24 @@
    {{s.lat}} 
     </p> --}}
 
-<input id="long" value={{s.long}} type="hidden">
-<input id="lat" value={{s.lat}} type="hidden">
-
-
-    <ul id="navButtons">
-      <li><a class="prev"></a></li>
-      <li><a class="next"></a></li>
-    </ul>
-  </div>
 
 
 {{/each}}
+
+     <a id="fly" class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a id="fly" class="next" onclick="plusSlides(1)">&#10095;</a>
+
+  </div>
+
+
+
 
 </div>
 
 
 
 
-{{!-- 5debafdedf9f632928e59250 --}}
+
 
 
 
@@ -94,12 +91,15 @@
 <script>
 
 
-let long= 0
-let lat= 0     
 
-long= document.getElementById('long').value
-console.log(long)
-lat = document.getElementById('lat').value 
+
+
+  let long= 0
+  let lat= 0   
+
+var slideIndex = 0;
+
+updatePosition();
 
 
 
@@ -154,6 +154,75 @@ inputs[i].onclick = switchLayer;
                     }
                 });
             });
-        });    
+        });  
+
+
+
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+   map.flyTo({
+              
+                center: [long, lat]
+            });
+            console.log(long)
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function updatePosition() {
+   long= document.getElementById(`long-${slideIndex}`).value
+   lat = document.getElementById(`lat-${slideIndex}`).value 
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("blogSlides");
+  var dots = document.getElementsByClassName("blogSlider__dots--dot"); 
+  
+  if (n >= slides.length) {
+    slideIndex = 0
+  }
+  if (n < 0) {
+    slideIndex = slides.length - 1;
+    
+  } 
+
+  updatePosition();
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+     
+        
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+   
+  }
+  slides[slideIndex].style.display = "block";
+  dots[slideIndex].className += " active";
+}
+
+
+
+
+
+
+
+/*
+        document.getElementById('fly').addEventListener('click', function() {
+          
+            map.flyTo({
+              
+                center: [long, lat]
+            });
+            console.log(long)
+        });
+
+      */  
+
+
 
 </script>
