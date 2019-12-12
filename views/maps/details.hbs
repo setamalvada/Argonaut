@@ -89,6 +89,19 @@
 </div>
 
 
+<h5 class="mb-4"><i class="fa fa-comments mr-3"></i>Comments</h5>
+    {{> commentForm}}
+    
+    {{#each map.comments as |c|}}
+      <div class="mb-3 border-bottom pb-3">
+        <p class="card-subtitle mb-2 text-muted">{{date c.createdAt}}</p>
+        <a href="/{{c.user.username}}">@{{c.user.username}}</a>
+        <p>{{c.text}}</p>
+      </div>
+    {{/each}}
+
+
+
 
 
 

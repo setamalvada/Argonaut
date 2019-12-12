@@ -3,6 +3,7 @@ const Map = require('../models/maps.model');
 const User = require('../models/user.model');
 const Like = require('../models/like.model');
 const Slide = require('../models/slide.model');
+const Comment = require('../models/comment.model');
 
 //newMap
 
@@ -65,13 +66,26 @@ module.exports.details = (req, res, next) => {
 
         Map.findById(id)
             .populate('slides')
-            .then(
-                map => {
-                    res.render('maps/details', { map })
+            .populate({
+                path: 'comments',
+                options: {
+                    sort: {
+                        createdAt: -1
+                    }
+                },
+                populate: {
+                    path: 'user'
                 }
-            ).catch(
-                error => next(error)
-            );
+            })
+
+
+        .then(
+            map => {
+                res.render('maps/details', { map })
+            }
+        ).catch(
+            error => next(error)
+        );
     }
 };
 
@@ -141,7 +155,7 @@ module.exports.deleteMap = (req, res, next) => {
 }
 
 
-// const Comment = require('../models/comment.model');
+
 
 // module.exports.index = (req, res, next) => {
 //   const criteria = req.query.search
@@ -186,25 +200,29 @@ module.exports.deleteMap = (req, res, next) => {
 //     .catch(next)
 // }
 
-// module.exports.addComment = (req, res, next) => {
-//   const tweetId = req.params.id
+module.exports.addComment = (req, res, next) => {
+    const mapId = req.params.id
 
-//   const comment = new Comment({
-//     text: req.body.text,
-//     user: req.currentUser._id,
-//     maps: tweetId
-//   })
+    const comment = new Comment({
+        text: req.body.text,
+        user: req.currentUser._id,
+        maps: mapId
+    })
 
-//   comment.save()
-//     .then(c => {
-//       req.session.genericSuccess = 'comment created'
-//       res.redirect(`/tweets/${tweetId}`)
-//     })
-//     .catch(() => {
-//       req.session.genericError = 'error creating comment'
-//       res.redirect(`/tweets/${tweetId}`)
-//     })
-// }
+    console.log(mapId)
+    console.log(comment)
+
+    comment.save()
+        .then(c => {
+            req.session.genericSuccess = 'comment created'
+            res.redirect(`/maps/${mapId}`)
+        })
+        .catch((error) => {
+            console.info('ERROR => ', error)
+            req.session.genericError = 'error creating comment'
+            res.redirect(`/maps/${mapId}`)
+        })
+}
 
 // module.exports.show = (req, res, next) => {
 //   Map.findOne({ _id: req.params.id })
