@@ -1,8 +1,8 @@
  {{!-- <form action="/maps" method="POST" > --}}
 
 <div>
-
-   <form onsubmit="return saveMapData()">
+<div id="main">
+   <form id="mapForm" onsubmit="return saveMapData()">
           <div class="form-group">
             <label for="mapTitle">Enter map title</label>
             <input name="mapTitle" type="text" class="form-control title" id="mapTitle"
@@ -19,7 +19,10 @@
 
        
 <input type="submit" value="submit">
+
 </form>
+
+</div>
 
  <form onsubmit="return saveData()">
           <div class="form-group">
@@ -180,6 +183,13 @@ const mapObj = []
         arrObj.push({...element})
        
         console.log(arrObj)
+
+        document.getElementById("title").value = ""
+        document.getElementById("description").value = ""
+        document.getElementById("image").value = ""
+        document.getElementById("long").value = ""
+        document.getElementById("lat").value = ""
+        
         return false
          
      }
@@ -196,6 +206,26 @@ const mapObj = []
          mapObj.push({...mapElement})
 
          console.log(mapObj)
+
+        let h1 = document.createElement("h1");
+        let p = document.createElement("p");
+
+
+        h1.innerHTML = mapTitle
+        p.innerHTML = mapDescription
+
+      
+
+document.getElementById("main").appendChild(h1);
+document.getElementById("main").appendChild(p);
+
+
+
+
+
+
+         document.getElementById('mapForm').remove()
+       
         return false
 
      }

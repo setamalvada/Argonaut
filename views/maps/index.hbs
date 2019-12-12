@@ -14,34 +14,6 @@
       <div class="album py-5 bg-light">
         <div class="container">
 
-
-
-
-
-
-{{!-- <h2>Movies</h2>
-<a href="/movies/create" class="btn btn-success mb-3">Add</a>
-{{#each movies}}
-<div class="card">
-  <div class="card-body">
-    <h5 class="card-title">
-      {{this.title}}
-    </h5>
-    <p><small>{{this.genre}}</small></p>
-   
-    <a href="/movies/{{this.id}}" class="btn btn-info">
-      See details
-    </a>
-    <a href="/movies/{{this.id}}/edit" class="btn btn-success">
-      Edit
-    </a>
-    <form class="d-inline" action="/movies/{{this.id}}/delete" method="POST">
-      <button class="btn btn-danger" type="submit">Delete</button>
-    </form>
-  </div>
-</div> --}}
-
-
           <div  class="row">
             {{#each maps}}
             <div class="col-md-4">
@@ -55,6 +27,12 @@
                       <a href="/maps/{{this._id}}" type="button" class="btn btn-sm btn-outline-secondary">View</a>
                       <a type="button" class="btn btn-sm btn-outline-secondary">Edit</a>
                     </div>
+
+<form class="d-inline" action="/maps/{{this.id}}/delete" method="POST">
+      <button class="btn btn-danger" type="submit">Delete</button>
+    </form>
+
+
                     <small class="text-muted">9 mins</small>
                   </div>
                 </div>

@@ -125,6 +125,22 @@ module.exports.listMaps = (req, res, next) => {
 };
 
 
+module.exports.deleteMap = (req, res, next) => {
+    const id = req.params.id;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        next(createError(404));
+    } else {
+        Map.findByIdAndDelete(id)
+            .then(mapDeleted => {
+                console.log('Map deleted => ', mapDeleted)
+                res.redirect('/maps')
+            })
+            .catch(error => next(error))
+    }
+}
+
+
 // const Comment = require('../models/comment.model');
 
 // module.exports.index = (req, res, next) => {

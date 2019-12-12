@@ -18,6 +18,7 @@ router.get('/maps/:id', mapsController.details)
 // Lista de mapas router.get('/celebrities', controller.listCelebrities)
 
 router.get('/maps', mapsController.listMaps)
+router.post('/maps/:id/delete', mapsController.deleteMap);
 
 // router.get('/', authMiddleware.isAuthenticated, mapsController.index)
 // router.get('/maps/:id', authMiddleware.isAuthenticated, mapsController.show)
