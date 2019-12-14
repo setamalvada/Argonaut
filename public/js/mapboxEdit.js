@@ -1,8 +1,8 @@
 window.onload = () => {
-    document.getElementById('create-map-btn').addEventListener('click', createMap)
+    document.getElementById('create-map-btn').addEventListener('click', editMap)
 }
 
-function createMap() {
+function editMap() {
     const map = {
         title: mapObj[0].title,
         slides: arrObj

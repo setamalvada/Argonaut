@@ -16,7 +16,7 @@ router.post('/maps', mapsController.create)
 router.get('/maps/:id', mapsController.details)
 
 router.get('/maps/:id/edit', mapsController.edit);
-router.post('/maps/:id/edit', mapsController.doEdit);
+// router.post('/maps/:id/edit', mapsController.doEdit);
 
 // Lista de mapas router.get('/celebrities', controller.listCelebrities)
 

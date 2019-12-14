@@ -86,21 +86,7 @@ module.exports.details = (req, res, next) => {
 
 
 
-module.exports.listMaps = (req, res, next) => {
-    Map.find()
 
-    .then(
-
-        maps => {
-            res.render('maps/index', { maps })
-
-        }
-
-    ).catch(
-        error => next(error)
-    );
-
-};
 
 
 module.exports.deleteMap = (req, res, next) => {
@@ -215,3 +201,38 @@ module.exports.addComment = (req, res, next) => {
             res.redirect(`/maps/${mapId}`)
         })
 }
+
+module.exports.edit = (req, res, next) => {
+    const id = req.params.id;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        next(createError(404));
+    } else {
+        Map.findById(id)
+            .populate('slides')
+            .then(
+                map => {
+                    res.render('maps/edit', { map })
+                }
+            ).catch(
+                error => next(error)
+            );
+    }
+}
+
+// module.exports.doEdit = (req, res, next) => {
+//     const id = req.params.id;
+
+//     if (!mongoose.Types.ObjectId.isValid(id)) {
+//         next(createError(404));
+//     } else {
+//         Map.findByIdAndUpdate(id, req.body, { new: true })
+//             .then(map => {
+//                 console.log(map)
+//                 res.redirect('/maps')
+//             })
+//             .catch(
+//                 error => next(error)
+//             )
+//     }
+// }
