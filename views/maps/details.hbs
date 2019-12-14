@@ -1,18 +1,48 @@
 
 
+<h1>{{map.title}}</h1>
+
+
+<div id='menu'>
+<label class="container-radio">Streets
+  <input  id='streets-v11' type='radio' name='rtoggle' value='streets' checked='checked'>
+  <span class="checkmark"></span>
+</label>
+<label class="container-radio">Light
+  <input id='light-v10' type='radio' name='rtoggle' value='light'>
+  <span class="checkmark"></span>
+</label>
+<label class="container-radio">Dark
+  <input id='dark-v10' type='radio' name='rtoggle' value='dark'>
+  <span class="checkmark"></span>
+</label>
+<label class="container-radio">Outdoors
+  <input id='outdoors-v11' type='radio' name='rtoggle' value='outdoors'>
+  <span class="checkmark"></span>
+</label>  
+<label class="container-radio">Satellite
+  <input id='satellite-v9' type='radio' name='rtoggle' value='satellite'>
+  <span class="checkmark"></span>  
+</label>
+</div>
 
 
 
 <div id="map">
 
+<div id="slides_container" style="display:block;" >
 
  {{#each map.slides as |s|}}
 
-<div id="slides_container" style="display:block;">
+<div class="blogSlider__dots" style="text-align:center">
+  <span class="blogSlider__dots--dot" onclick="currentSlide(1)"></span> 
+ </div>
+
+
     {{!-- <div id="dots"></div>
 
     <div id="slides"></div> --}}
-   
+  <div class="blogSlides">
     <h1>
     {{s.title}}        
     </h1>
@@ -22,33 +52,58 @@
     </p>
 
 
-    <p>
+
+ {{#if s.image}}
+    <img id="img" src="{{s.image}}">
+    {{/if}}
+
+
+
+
+    
+
+    <input id="long-{{@index}}" value={{s.long}} type="hidden">
+    <input id="lat-{{@index}}" value={{s.lat}} type="hidden">
+
+</div>
+    {{!-- <p>
    {{s.long}} 
     </p>
 
       <p>
    {{s.lat}} 
-    </p>
+    </p> --}}
 
-{{!-- <input id="long" value={{s.long}}/>
-<p id="lat">{{s.lat}}</p> --}}
-
-
-    <ul id="navButtons">
-      <li><a class="prev"></a></li>
-      <li><a class="next"></a></li>
-    </ul>
-  </div>
 
 
 {{/each}}
 
+     <a id="fly" class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a id="fly" class="next" onclick="plusSlides(1)">&#10095;</a>
+
+  </div>
+
+
+
+
 </div>
 
 
+<h5 class="mb-4"><i class="fa fa-comments mr-3"></i>Comments</h5>
+    {{> commentForm}}
+    {{#each map.comments as |c|}}
+      <div class="mb-3 border-bottom pb-3">
+         <p class="card-subtitle mb-2 text-muted">{{date c.createdAt}}</p>
+        <a href="/{{c.user.username}}">@{{c.user.username}}</a> 
+        <p>{{c.text}}</p>
+      </div>
+    {{/each}}
 
 
-{{!-- 5debafdedf9f632928e59250 --}}
+
+
+
+
 
 
 
@@ -56,12 +111,18 @@
 <script>
 
 
-let longitude = ""
-let latitude = 0     
 
-longitude = document.getElementById('long').value
-console.log(longitude)
-latitude = Number(document.getElementById('lat').value)
+
+
+
+
+
+  let long= 0
+  let lat= 0   
+
+var slideIndex = 0;
+
+updatePosition();
 
 
 
@@ -70,11 +131,25 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiaXJvbm1vZHVsZTIiLCJhIjoiY2szZnQzdzN0MDdzNjNjb
         const map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/streets-v11',
-            center: [longitude, latitude],
+            center: [long, lat],
+            
             zoom: 9.0,
         });
 
-        
+map.addControl(new mapboxgl.FullscreenControl());
+        map.addControl(new mapboxgl.NavigationControl());
+
+        let layerList = document.getElementById('menu');
+let inputs = layerList.getElementsByTagName('input');
+ 
+function switchLayer(layer) {
+let layerId = layer.target.id;
+map.setStyle('mapbox://styles/mapbox/' + layerId);
+}
+ 
+for (let i = 0; i < inputs.length; i++) {
+inputs[i].onclick = switchLayer;
+}
 
         map.on('load', function() {
             map.loadImage('https://img.icons8.com/android/24/000000/marker.png', function(error, image) {
@@ -102,6 +177,75 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiaXJvbm1vZHVsZTIiLCJhIjoiY2szZnQzdzN0MDdzNjNjb
                     }
                 });
             });
-        });    
+        });  
+
+
+
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+   map.flyTo({
+              
+                center: [long, lat]
+            });
+            console.log(long)
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function updatePosition() {
+   long= document.getElementById(`long-${slideIndex}`).value
+   lat = document.getElementById(`lat-${slideIndex}`).value 
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("blogSlides");
+  var dots = document.getElementsByClassName("blogSlider__dots--dot"); 
+  
+  if (n >= slides.length) {
+    slideIndex = 0
+  }
+  if (n < 0) {
+    slideIndex = slides.length - 1;
+    
+  } 
+
+  updatePosition();
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+     
+        
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+   
+  }
+  slides[slideIndex].style.display = "block";
+  dots[slideIndex].className += " active";
+}
+
+
+
+
+
+
+
+/*
+        document.getElementById('fly').addEventListener('click', function() {
+          
+            map.flyTo({
+              
+                center: [long, lat]
+            });
+            console.log(long)
+        });
+
+      */  
+
+
 
 </script>
