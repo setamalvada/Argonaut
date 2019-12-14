@@ -154,6 +154,123 @@ module.exports.deleteMap = (req, res, next) => {
     }
 }
 
+module.exports.newMap = (_, res) => {
+    res.render('maps/new');
+}
+
+module.exports.create = (req, res, next) => {
+    const map = new Map({
+        user: req.session.user._id,
+        title: req.body.title,
+        description: req.body.description,
+        image: req.body.image,
+        cathegory: req.body.cathegory
+    })
+
+    map.save()
+        .then(map => {
+            const slidesData = req.body.slides.map(slide => {
+
+                return {
+                    title: slide.title,
+                    description: slide.description,
+                    image: slide.image,
+                    long: slide.long,
+                    lat: slide.lat,
+                    map: map._id
+                }
+
+            })
+            console.log(slidesData)
+            Slide.create(slidesData)
+                .then(slides => {
+                    res.json(map)
+                })
+                .catch(next)
+        })
+        .catch(next)
+}
+
+
+
+// module.exports.details = (req, res, next) => {
+//     Map.findOne({ _id: req.params.id })
+//         .then(map => {
+//             if (!map) {
+//                 res.redirect('/home')
+//             } else {
+//                 res.render('maps/details', { map })
+//             }
+//         })
+//         .catch(next)
+// }
+
+module.exports.details = (req, res, next) => {
+    const id = req.params.id;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        next(createError(404));
+    } else {
+
+        Map.findById(id)
+            .populate('slides')
+            .then(
+                map => {
+                    res.render('maps/details', { map })
+                }
+            ).catch(
+                error => next(error)
+            );
+    }
+};
+
+
+
+
+// module.exports.details = (req, res, next) => {
+//     const id = req.params.id;
+//     if (!mongoose.Types.ObjectId.isValid(id)) {
+//         next(createError(404));
+//     } else {
+
+//         Map.findById(id)
+//             .then(
+//                 map => {
+//                     res.render('maps/details', { map })
+
+//                 }
+//             ).catch(
+//                 error => next(error)
+//             );
+
+//         Slide.find({ map: id })
+//             .then(
+//                 slide => {
+//                     res.render('maps/details', { slide })
+//                 }
+
+//             ).catch(
+//                 error => next(error)
+//             );
+
+//     }
+// };
+
+
+module.exports.listMaps = (req, res, next) => {
+    Map.find()
+
+    .then(
+
+        maps => {
+            res.render('maps/index', { maps })
+
+        }
+
+    ).catch(
+        error => next(error)
+    );
+
+};
 
 
 
