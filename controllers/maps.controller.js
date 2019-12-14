@@ -50,17 +50,7 @@ module.exports.create = (req, res, next) => {
 
 
 
-// module.exports.details = (req, res, next) => {
-//     Map.findOne({ _id: req.params.id })
-//         .then(map => {
-//             if (!map) {
-//                 res.redirect('/home')
-//             } else {
-//                 res.render('maps/details', { map })
-//             }
-//         })
-//         .catch(next)
-// }
+
 
 module.exports.details = (req, res, next) => {
     const id = req.params.id;
@@ -80,7 +70,9 @@ module.exports.details = (req, res, next) => {
                     path: 'user'
                 }
             })
-            .then(map => console.info('MAP => ', map) || res.render('maps/details', { map }))
+            .then(map => {
+                console.info('MAP => ', map) || res.render('maps/details', { map })
+            })
             .catch(error => next(error));
 
 
@@ -92,34 +84,6 @@ module.exports.details = (req, res, next) => {
 
 
 
-// module.exports.details = (req, res, next) => {
-//     const id = req.params.id;
-//     if (!mongoose.Types.ObjectId.isValid(id)) {
-//         next(createError(404));
-//     } else {
-
-//         Map.findById(id)
-//             .then(
-//                 map => {
-//                     res.render('maps/details', { map })
-
-//                 }
-//             ).catch(
-//                 error => next(error)
-//             );
-
-//         Slide.find({ map: id })
-//             .then(
-//                 slide => {
-//                     res.render('maps/details', { slide })
-//                 }
-
-//             ).catch(
-//                 error => next(error)
-//             );
-
-//     }
-// };
 
 
 module.exports.listMaps = (req, res, next) => {
@@ -193,67 +157,14 @@ module.exports.create = (req, res, next) => {
 
 
 
-// module.exports.details = (req, res, next) => {
-//     Map.findOne({ _id: req.params.id })
-//         .then(map => {
-//             if (!map) {
-//                 res.redirect('/home')
-//             } else {
-//                 res.render('maps/details', { map })
-//             }
-//         })
-//         .catch(next)
-// }
-
-module.exports.details = (req, res, next) => {
-    const id = req.params.id;
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        next(createError(404));
-    } else {
-
-        Map.findById(id)
-            .populate('slides')
-            .then(
-                map => {
-                    res.render('maps/details', { map })
-                }
-            ).catch(
-                error => next(error)
-            );
-    }
-};
 
 
 
 
-// module.exports.details = (req, res, next) => {
-//     const id = req.params.id;
-//     if (!mongoose.Types.ObjectId.isValid(id)) {
-//         next(createError(404));
-//     } else {
 
-//         Map.findById(id)
-//             .then(
-//                 map => {
-//                     res.render('maps/details', { map })
 
-//                 }
-//             ).catch(
-//                 error => next(error)
-//             );
 
-//         Slide.find({ map: id })
-//             .then(
-//                 slide => {
-//                     res.render('maps/details', { slide })
-//                 }
 
-//             ).catch(
-//                 error => next(error)
-//             );
-
-//     }
-// };
 
 
 module.exports.listMaps = (req, res, next) => {
@@ -274,48 +185,7 @@ module.exports.listMaps = (req, res, next) => {
 
 
 
-// module.exports.index = (req, res, next) => {
-//   const criteria = req.query.search
-//     ? {
-//       body: new RegExp(req.query.search, "i")
-//     }
-//     : {}
 
-//   Map.find(criteria)
-//     .sort({ createdAt: -1 })
-//     .limit(100)
-//     .populate('user')
-//     .populate('comments')
-//     .populate('likes')
-//     .then(tweets => {
-//       res.render('tweets/index', { user: req.currentUser, tweets })
-//     })
-//     .catch(next)
-// }
-
-// module.exports.like = (req, res, next) => {
-//   const params = { maps: req.params.id, user: req.currentUser._id }
-
-//   Like.findOne(params)
-//     .then(like => {
-//       if (like) {
-//         Like.findByIdAndRemove(like._id)
-//           .then(() => {
-//             res.json({ likes: -1 })
-//           })
-//           .catch(next)
-//       } else {
-//         const like = new Like(params)
-
-//         like.save()
-//           .then(() => {
-//             res.json({ likes: 1})
-//           })
-//           .catch(next)
-//       }
-//     })
-//     .catch(next)
-// }
 
 module.exports.addComment = (req, res, next) => {
     const mapId = req.params.id
@@ -345,69 +215,3 @@ module.exports.addComment = (req, res, next) => {
             res.redirect(`/maps/${mapId}`)
         })
 }
-
-// module.exports.show = (req, res, next) => {
-//   Map.findOne({ _id: req.params.id })
-//     .populate('user')
-//     .populate({
-//       path: 'comments',
-//       options: {
-//         sort: {
-//           createdAt: -1
-//         }
-//       },
-//       populate: {
-//         path: 'user'
-//       }
-//     })
-//     .then(maps => {
-//       if (maps) {
-//         res.render('tweets/show', { tweet, user: maps.user })
-//       } else {
-//         req.session.genericError = 'maps not found'
-//         res.redirect('/')
-//       }
-//     })
-//     .catch(next)
-// }
-
-// module.exports.create = (req, res, next) => {
-//   const maps = new Map({
-//     user: req.currentUser._id,
-//     body: req.body.body,
-//     image: req.file ? req.file.url : undefined
-//   })
-
-//   maps.save()
-//     .then(() => {
-//       req.session.genericSuccess = "maps created"
-//       res.redirect('/')
-//     })
-//     .catch(error => {
-//       if (error instanceof mongoose.Error.ValidationError) {
-//         req.session.genericError = "can't create maps"
-//         res.redirect('/')
-//       } else {
-//         next(error);
-//       }
-//     })
-// }
-
-// module.exports.profile = (req, res, next) => {
-//   User.findOne({ username: req.params.username })
-//     .populate({
-//       path: 'tweets',
-//       populate: {
-//         path: 'user'
-//       }
-//     })
-//     .then(user => {
-//       if (user) {
-//         res.render('tweets/index', { user, tweets: user.tweets })
-//       } else {
-//         req.session.genericError = 'user not found'
-//         res.redirect('/')
-//       }
-//     })
-//     .catch(next)
-// }
