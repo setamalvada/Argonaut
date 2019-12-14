@@ -1,3 +1,4 @@
+ 
 const mongoose = require('mongoose');
 require('./texts.model')
 require('./like.model')

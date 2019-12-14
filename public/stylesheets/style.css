@@ -73,7 +73,6 @@ label {
     height: 800px;
     background-color: red;
 }
-
 .blogSlides div {
     width: 200px;
     height: 300px;
@@ -150,7 +149,6 @@ label {
         transition: background-color 0.6s ease;
     }
 }
-
 .active,
 .blogSlider__dots--dot:hover {
     background-color: #717171;
@@ -165,7 +163,6 @@ label {
     animation-name: fade;
     animation-duration: 1.5s;
 }
-
 @-webkit-keyframes fade {
     from {
         opacity: .4
@@ -174,7 +171,6 @@ label {
         opacity: 1
     }
 }
-
 @keyframes fade {
     from {
         opacity: .4
@@ -344,4 +340,28 @@ label {
 .active,
 .blogSlider__dots--dot:hover {
     background-color: #717171;
+/*slideshow user*/
+
+.MultiCarousel { float: left; overflow: hidden; padding: 15px; width: 55%; position:relative; }
+.MultiCarousel .MultiCarousel-inner { transition: 1s ease all; float: left; }
+.MultiCarousel .MultiCarousel-inner .item { float: left;}
+.MultiCarousel .MultiCarousel-inner .item > div { text-align: center; padding:10px; margin:10px; background:#f1f1f1; color:#666;}
+.MultiCarousel .leftLst, .MultiCarousel .rightLst { position:absolute; border-radius:50%;top:calc(50% - 20px); }
+.MultiCarousel .leftLst { left:0; }
+.MultiCarousel .rightLst { right:0; }
+    
+.MultiCarousel .leftLst.over, .MultiCarousel .rightLst.over { pointer-events: none; background:#ccc; }
+
+/*Background colors*/
+
+.bg-bl{
+    background-color: lightblue;
+}
+
+.bord-rad{
+    border-radius: 30px;;
+}
+
+.blue-let{
+    color:#2c7fb8;
 }

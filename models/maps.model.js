@@ -21,6 +21,7 @@ const mapsSchema = new mongoose.Schema({
     cathegory: {
         type: String
     }
+
 }, { timestamps: true })
 
 // mapsSchema.pre('save', function (next) {
