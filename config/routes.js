@@ -15,6 +15,9 @@ router.get('/maps/new', mapsController.newMap)
 router.post('/maps', mapsController.create)
 router.get('/maps/:id', mapsController.details)
 
+router.get('/maps/:id/edit', mapsController.edit);
+router.post('/maps/:id/edit', mapsController.doEdit);
+
 // Lista de mapas router.get('/celebrities', controller.listCelebrities)
 
 router.get('/maps', mapsController.listMaps)
@@ -40,4 +43,4 @@ router.post('/users/userDashboard', /*authMiddleware.isAuthenticated,*/ usersCon
 // router.post('/slack', authMiddleware.isNotAuthenticated, passport.authenticate('slack-auth'));
 // router.get('/callback/:provider', authMiddleware.isNotAuthenticated, usersController.doSocialLogin);
 
-// router.get('/:username', authMiddleware.isAuthenticated, mapsController.profile)
+// router.get('/:username', authMiddleware.isAuthenticated, mapsController.profile)apsp
