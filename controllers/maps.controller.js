@@ -120,7 +120,6 @@ module.exports.create = (req, res, next) => {
     map.save()
         .then(map => {
             const slidesData = req.body.slides.map(slide => {
-
                 return {
                     title: slide.title,
                     description: slide.description,
@@ -140,6 +139,14 @@ module.exports.create = (req, res, next) => {
         })
         .catch(next)
 }
+
+/**
+ Promise.all(slides.map(slide => {
+    return Slide.findByIdAndUpdate(slide.id, field: field, { new: true })
+ }))
+    .then(result => [])
+    .catch(catch)
+ */
 
 
 
@@ -220,19 +227,20 @@ module.exports.edit = (req, res, next) => {
     }
 }
 
-// module.exports.doEdit = (req, res, next) => {
-//     const id = req.params.id;
+module.exports.doEdit = (req, res, next) => {
+    const id = req.params.id;
+    console.info('body => ', req.body)
 
-//     if (!mongoose.Types.ObjectId.isValid(id)) {
-//         next(createError(404));
-//     } else {
-//         Map.findByIdAndUpdate(id, req.body, { new: true })
-//             .then(map => {
-//                 console.log(map)
-//                 res.redirect('/maps')
-//             })
-//             .catch(
-//                 error => next(error)
-//             )
-//     }
-// }
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        next(createError(404));
+    } else {
+        Map.findByIdAndUpdate(id, req.body, { new: true })
+            .then(map => {
+                console.log(map)
+                res.redirect('/maps')
+            })
+            .catch(
+                error => next(error)
+            )
+    }
+}

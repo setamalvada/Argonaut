@@ -8,7 +8,7 @@ function editMap() {
         slides: arrObj
     }
 
-    axios.post('/maps', map)
+    axios.post(`/maps/${mapObj[0].id}/edit`, map)
         .then(response => window.location.assign('/maps'))
         .catch(err => console.log(err))
 }
