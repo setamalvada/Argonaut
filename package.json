@@ -1,7 +1,6 @@
 {
   "name": "auth-example",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -35,5 +34,17 @@
   },
   "devDependencies": {
     "nodemon": "^1.19.4"
-  }
+  },
+  "bin": {
+    "auth-example": "seeds.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/setamalvada/Argonaut.git"
+  },
+  "bugs": {
+    "url": "https://github.com/setamalvada/Argonaut/issues"
+  },
+  "homepage": "https://github.com/setamalvada/Argonaut#readme",
+  "description": ""
 }
