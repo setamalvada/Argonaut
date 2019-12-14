@@ -6,11 +6,14 @@ const commentSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
-    map: {
+    maps: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Map',
         //required: true
     }
 }, { timestamps: true })
+
+// commentSchema.set('toObject', { getters: true })
+
 const Comment = mongoose.model('Comment', commentSchema);
 module.exports = Comment;

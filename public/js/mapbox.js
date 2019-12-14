@@ -12,3 +12,8 @@ function createMap() {
         .then(response => window.location.assign('/home'))
         .catch(err => console.log(err))
 }
+
+// function getDomain() {
+//     return process.env.NODE_ENV === 'dev' ?
+//         '' : 'https://herokuapp.com'
+// }

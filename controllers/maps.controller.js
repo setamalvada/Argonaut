@@ -40,6 +40,10 @@ module.exports.create = (req, res, next) => {
                     res.json(map)
                 })
                 .catch(next)
+
+
+
+
         })
         .catch(next)
 }
@@ -63,7 +67,6 @@ module.exports.details = (req, res, next) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         next(createError(404));
     } else {
-
         Map.findById(id)
             .populate('slides')
             .populate({
@@ -77,15 +80,12 @@ module.exports.details = (req, res, next) => {
                     path: 'user'
                 }
             })
+            .then(map => console.info('MAP => ', map) || res.render('maps/details', { map }))
+            .catch(error => next(error));
 
 
-        .then(
-            map => {
-                res.render('maps/details', { map })
-            }
-        ).catch(
-            error => next(error)
-        );
+
+
     }
 };
 
@@ -209,11 +209,16 @@ module.exports.addComment = (req, res, next) => {
         maps: mapId
     })
 
-    console.log(mapId)
-    console.log(comment)
+    console.log('map id => ', mapId)
+    console.log('comment object => ', comment)
 
     comment.save()
         .then(c => {
+            console.info('new comment => ', c)
+            Map.findByIdAndUpdate({ _id: mapId }, { $push: { comments: c.id } }, { new: true })
+                .then(result => console.info(result))
+                .catch(error => console.info('Error => ', error))
+
             req.session.genericSuccess = 'comment created'
             res.redirect(`/maps/${mapId}`)
         })
