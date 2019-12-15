@@ -80,7 +80,6 @@ module.exports.doGoogleLogin = (req, res, next) => {
 
 module.exports.doLogin = (req, res, next) => {
     const { email, password/*, repeatPassword */} = req.body
-
     if (!email || !password /*|| !repeatPassword*/) {
         return res.render('users/login', { user: req.body })
     }
@@ -147,3 +146,37 @@ module.exports.createDashboard = (req, res, next) => {
         error => next(error)
     );
 }
+
+module.exports.edit = (req, res, next) => {
+    // const id = req.params.id;
+    
+    // if (!mongoose.Types.ObjectId.isValid(id)) {
+    //     error => next(error)
+    // } else {
+    //     User.findById(id)
+    //         .then(
+    //             user => {
+    //                 res.render('users/login', { user })
+    //             }
+    //         ).catch(
+    //             error => next(error)
+    //         );
+    // }
+    res.render('users/editUser')
+  }
+  
+  module.exports.doEdit = (req, res, next) => {
+    const id = req.params.id;
+  
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        error => next(error)
+    } else {
+        User.findByIdAndUpdate(id, req.body, { new: true })
+            .then(user => {
+                res.redirect('/users/userDashboard')
+            })
+            .catch(
+                error => next(error)
+            )
+    }
+  }
