@@ -71,7 +71,7 @@ window.onload = () => {
 
 function createMap() {
     const map = {
-        title: 'dummy map',
+        title: mapObj[0].title,
         slides: arrObj
     }
 

@@ -65,20 +65,28 @@ module.exports = router;
 
 
 router.get('/home', baseController.index)
-router.get('/maps', baseController.show)
+//router.get('/maps', baseController.show)
 router.post('/maps', mapsController.create)
+router.get('/maps', mapsController.listMaps)
 router.get('/maps/new', mapsController.newMap)
 router.get('/maps/:id', mapsController.details)
+router.get('/maps/:id/edit', mapsController.edit);
+router.post('/maps/:id/edit', mapsController.doEdit);
+router.post('/maps/:id/delete', mapsController.deleteMap);
+router.post('/maps/:id/comments', authMiddleware.isAuthenticated, mapsController.addComment)
+
 
 // router.get('/', authMiddleware.isAuthenticated, mapsController.index)
 // router.get('/maps/:id', authMiddleware.isAuthenticated, mapsController.show)
-// router.post('/maps/:id/comments', authMiddleware.isAuthenticated, mapsController.addComment)
 // router.post('/maps/:id/like', authMiddleware.isAuthenticated, mapsController.like)
 // router.post('/maps', authMiddleware.isAuthenticated, upload.single('image'), mapsController.create)
 
 router.get('/users/new', authMiddleware.isNotAuthenticated, usersController.new)
 router.post('/users', authMiddleware.isNotAuthenticated,upload.single('avatar'), usersController.create)
 router.post('/users/userDashboard', authMiddleware.isAuthenticated, usersController.createDashboard)
+
+router.get('/users/profile', authMiddleware.isAuthenticated, usersController.createDashboard)
+
 router.get('/users/profile', authMiddleware.isAuthenticated,  usersController.createDashboard)
 router.get('/users/:token/validate', usersController.validate)
 

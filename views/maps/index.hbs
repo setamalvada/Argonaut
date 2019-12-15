@@ -15,10 +15,6 @@
         <div class="container">
 
 
-
-
-
-
 {{!-- <h2>Movies</h2>
 <a href="/movies/create" class="btn btn-success mb-3">Add</a>
 {{#each movies}}
@@ -42,8 +38,8 @@
 </div> --}}
 
 
-          <div  class="row">
-            {{#each maps}}
+        <div  class="row">
+          {{#each maps}}
             <div class="col-md-4">
               <div class="card mb-4 box-shadow">
                 <img class="card-img-top" src="../../images/example.jpg" alt="Card image cap">
@@ -55,18 +51,18 @@
                       <a href="/maps/{{this._id}}" type="button" class="btn btn-sm btn-outline-secondary">View</a>
                       <a type="button" class="btn btn-sm btn-outline-secondary">Edit</a>
                     </div>
+                    <form class="d-inline" action="/maps/{{this.id}}/delete" method="POST">
+                      <button class="btn btn-danger" type="submit">Delete</button>
+                    </form>
                     <small class="text-muted">9 mins</small>
                   </div>
                 </div>
               </div>
             </div>
-            {{/each}}
-                </div>
+          {{/each}}
+        </div>
 
-
-
-
-                </div>
+      </div>
               
       </div>
 

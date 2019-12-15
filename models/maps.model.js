@@ -8,6 +8,11 @@ const mapsSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
+    comments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comment',
+        required: true
+    }],
     title: {
         type: String,
         required: true
@@ -21,7 +26,6 @@ const mapsSchema = new mongoose.Schema({
     cathegory: {
         type: String
     }
-
 }, { timestamps: true })
 
 // mapsSchema.pre('save', function (next) {

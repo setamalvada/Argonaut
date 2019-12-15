@@ -1,32 +1,62 @@
  {{!-- <form action="/maps" method="POST" > --}}
 
 <div>
+<div id="main">
+   <form id="mapForm" onsubmit="return saveMapData()">
+          <div class="form-group">
+            <label for="mapTitle">Enter map title</label>
+            <input name="mapTitle" type="text" class="form-control title" id="mapTitle"
+            placeholder="Enter title" value="mapTitle">
+            </div>
+
+            <div class="form-group">
+            <label for="mapDescription">Enter map description</label>
+            <textarea name="mapDescription" type="text" class="form-control description"  id="mapDescription"
+            placeholder="Enter text" value="mapDescription" rows="4"></textarea>
+
+            
+        </div>
+
+       
+<input type="submit" value="submit">
+
+</form>
+
+</div>
 
  <form onsubmit="return saveData()">
           <div class="form-group">
-            <label for="title">Enter title</label>
+            <label for="title">Enter slide title</label>
             <input name="title" type="text" class="form-control title" id="title"
             placeholder="Enter title" value="title">
             </div>
 
             <div class="form-group">
-            <label for="description">Your text</label>
+            <label for="description">Enter slide text</label>
             <textarea name="description" type="text" class="form-control description"  id="description"
-            placeholder="Enter text" value="description" rows="4"></textarea>
+            placeholder="Enter text" value="description" rows="4">Enter text</textarea>
 
             
         </div>
 
+
+        <div class="form-group">
+            <label for="image">Enter image url</label>
+            <input name="image" type="text" class="form-control image" id="image"
+            placeholder="Enter image">
+            </div>
+
         <div class="form-group">
             <label for="long">Longitude</label>
-            <input name="long" type="text" class="form-control title" id="long"
+            <input name="long" type="number" step="any" class="form-control title" id="long"
              value="long">
             </div>
 
         <div class="form-group">
             <label for="lat">Latitude</label>
-            <input name="lat" type="text" class="form-control title" id="lat"
+            <input name="lat" type="number" step="any" class="form-control title" id="lat"
              value="lat">
+             
             </div>    
 
 
@@ -49,8 +79,11 @@
   
 let title = ""
 let description = ""
-let longitude = ""
-let latitude = "" 
+let image = ""
+let longitude = 0
+let latitude = 0 
+let mapTitle = ""
+let mapDescription = ""
       mapboxgl.accessToken = 'pk.eyJ1IjoiaXJvbm1vZHVsZTIiLCJhIjoiY2szZnQzdzN0MDdzNjNjbzQ5amZ5M24wMyJ9.1AdiIc2dD4lw7Toih03G0Q';
         const map = new mapboxgl.Map({
             container: 'map',
@@ -58,6 +91,8 @@ let latitude = ""
             center: [-77.04, 38.907],
             zoom: 11.15,
         });
+        
+map.addControl(new mapboxgl.NavigationControl());
         console.log(map)
         map.on('load', function() {
             map.loadImage('https://img.icons8.com/android/24/000000/marker.png', function(error, image) {
@@ -96,8 +131,10 @@ JSON.stringify(e.lngLat.wrap());
 map.on('click', function (b){
   let long = b.lngLat.lng
   let lat = b.lngLat.lat
-  longitude = document.getElementById('long').value= b.lngLat.lng
-   latitude = document.getElementById('lat').value = b.lngLat.lat
+  console.log(long)
+  longitude = Number(document.getElementById('long').value= b.lngLat.lng)
+   latitude = Number(document.getElementById('lat').value = b.lngLat.lat)
+console.log(longitude)
 let popup = new mapboxgl.Popup({closeOnClick: true})
 .setLngLat([long, lat])
 .setHTML('<h1>Your location</h1>')
@@ -107,36 +144,56 @@ let popup = new mapboxgl.Popup({closeOnClick: true})
 })
 });
 const arrObj = []
+const mapObj = []
      function saveData(){
      
+           
           title = document.getElementById("title").value
           description = document.getElementById("description").value
+          image = document.getElementById("image").value
          
         // console.log(title)
           let slide = 0
         let element = {}
+       
       
+     
         element.title = title
         element.description = description
-       element.longitude = longitude
-        element.latitude = latitude
+        element.image = image
+       element.long = longitude
+        element.lat = latitude
         arrObj.push({...element})
+       
         console.log(arrObj)
+        document.getElementById("title").value = ""
+        document.getElementById("description").value = ""
+        document.getElementById("image").value = ""
+        document.getElementById("long").value = ""
+        document.getElementById("lat").value = ""
+        
         return false
          
      }
-/*map.on('click', addMarker);
-function addMarker(e){
-  if (typeof circleMarker !== "undefined" ){ 
-    map.removeLayer(circleMarker);         
-  }
-  //add marker
-  circleMarker = new  L.circle(e.latlng, 200, {
-                color: 'red',
-                fillColor: '#f03',
-                fillOpacity: 0.5
-            }).addTo(map);
-}*/
+     function saveMapData(){
+       mapTitle = document.getElementById("mapTitle").value
+          mapDescription = document.getElementById("mapDescription").value
+ let mapElement = {}
+           mapElement.title = mapTitle
+        mapElement.description = mapDescription
+         mapObj.push({...mapElement})
+         console.log(mapObj)
+        let h1 = document.createElement("h1");
+        let p = document.createElement("p");
+        h1.innerHTML = mapTitle
+        p.innerHTML = mapDescription
+      
+document.getElementById("main").appendChild(h1);
+document.getElementById("main").appendChild(p);
+         document.getElementById('mapForm').remove()
+       
+        return false
+     }
  </script>
 
  <script src="/js/mapbox.js"></script>

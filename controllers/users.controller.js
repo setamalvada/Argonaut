@@ -1,4 +1,5 @@
 const User = require('../models/user.model');
+const Map = require('../models/maps.model');
 const mongoose = require('mongoose');
 const mailer = require('../config/mailer.config');
 const passport = require('passport');
@@ -50,7 +51,7 @@ module.exports.validate = (req, res, next) => {
                 user.validated = true
                 user.save()
                     .then(() => {
-                        res.redirect('/login')
+                        res.redirect('/users/profile')
                     })
                     .catch(next)
             } else {
@@ -72,7 +73,7 @@ module.exports.doGoogleLogin = (req, res, next) => {
             next(error);
         } else {
             req.session.user = user;
-            res.redirect('/users/userDashboard')
+            res.redirect('/users/profile')
         }
     })(req, res, next);
 }
@@ -108,7 +109,8 @@ module.exports.doLogin = (req, res, next) => {
                         } else {
                             req.session.user = user;
                             // req.session.genericSuccess = 'Welcome!'
-                            res.render('users/userDashboard', {user: req.body});
+                            //res.render('users/userDashboard', {user: req.body});
+                            res.redirect('/users/profile');
                         }
                     })
                 //}
@@ -131,6 +133,17 @@ module.exports.logout = (req, res) => {
     res.redirect('/login');
 }
 
-module.exports.createDashboard = (_, res) => {
-    res.render('users/userDashboard')
+// module.exports.createDashboard = (_, res) => {
+//     res.render('users/userDashboard')
+// }
+
+module.exports.createDashboard = (req, res, next) => {
+    Map.find()
+    .then(
+        maps => {
+            res.render('users/userDashboard', { maps })
+        }
+    ).catch(
+        error => next(error)
+    );
 }
