@@ -86,9 +86,11 @@ router.post('/users', authMiddleware.isNotAuthenticated,upload.single('avatar'),
 router.post('/users/userDashboard', authMiddleware.isAuthenticated, usersController.createDashboard)
 
 router.get('/users/profile', authMiddleware.isAuthenticated, usersController.createDashboard)
-router.get('/users/editUser', usersController.edit);
-router.post('/users/:id/edit', usersController.doEdit);
+
+router.get('/users/:id/editUser', usersController.edit);
+router.post('/users/:id/editUser', usersController.doEdit);
 router.get('/users/:token/validate', usersController.validate)
+
 
 router.get('/login', authMiddleware.isNotAuthenticated, usersController.login)
 router.post('/login', authMiddleware.isNotAuthenticated, usersController.doLogin)

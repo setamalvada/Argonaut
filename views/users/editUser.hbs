@@ -17,7 +17,7 @@
        
         <h3>Personal info</h3>
         
-        <form action="/users/editUser" method="POST" class="form-horizontal" >
+        <form action="/users/{{currentUser._id}}/editUser" method="POST" class="form-horizontal" >
           <div class="form-group">
             <label class="col-lg-3 control-label">Name:</label>
             <div class="col-lg-8">
@@ -41,7 +41,7 @@
             <div class="col-md-8">
               <input type="button" class="btn btn-primary" value="Save Changes">
               <span></span>
-              <input type="reset" class="btn btn-default" value="Cancel">
+              <a href="/users/profile"> <button type="button" class="btn btn-danger">Cancel</button></a>
             </div>
           </div>
         </form>

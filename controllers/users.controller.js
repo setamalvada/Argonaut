@@ -148,21 +148,20 @@ module.exports.createDashboard = (req, res, next) => {
 }
 
 module.exports.edit = (req, res, next) => {
-    // const id = req.params.id;
+    const id = req.params.id;
     
-    // if (!mongoose.Types.ObjectId.isValid(id)) {
-    //     error => next(error)
-    // } else {
-    //     User.findById(id)
-    //         .then(
-    //             user => {
-    //                 res.render('users/login', { user })
-    //             }
-    //         ).catch(
-    //             error => next(error)
-    //         );
-    // }
-    res.render('users/editUser')
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        error => next(error)
+    } else {
+        User.findById(id)
+            .then(
+                user => {
+                    res.render('users/editUser', { user })
+                }
+            ).catch(
+                error => next(error)
+            );
+    }
   }
   
   module.exports.doEdit = (req, res, next) => {
