@@ -140,13 +140,7 @@ module.exports.create = (req, res, next) => {
         .catch(next)
 }
 
-/**
- Promise.all(slides.map(slide => {
-    return Slide.findByIdAndUpdate(slide.id, field: field, { new: true })
- }))
-    .then(result => [])
-    .catch(catch)
- */
+
 
 
 
@@ -236,11 +230,29 @@ module.exports.doEdit = (req, res, next) => {
     } else {
         Map.findByIdAndUpdate(id, req.body, { new: true })
             .then(map => {
+
+
+
                 console.log(map)
                 res.redirect('/maps')
             })
             .catch(
                 error => next(error)
             )
+        const slidesData = req.body.slides
+        Promise.all(slidesData.map(slide => {
+            //   return Slide.findByIdAndUpdate(slide.id, field: field, { new: true })
+        }))
     }
 }
+
+
+
+
+/**
+ Promise.all(slides.map(slide => {
+    return Slide.findByIdAndUpdate(slide.id, field: field, { new: true })
+ }))
+    .then(result => [])
+    .catch(catch)
+ */
