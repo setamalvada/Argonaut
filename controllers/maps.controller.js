@@ -222,13 +222,49 @@ module.exports.edit = (req, res, next) => {
 }
 
 module.exports.doEdit = (req, res, next) => {
+
+
+    // const slidesData = req.body.slides.map(slide => {
+    //     return {
+    //         title: slide.title,
+    //         description: slide.description,
+    //         image: slide.image,
+    //         long: slide.long,
+    //         lat: slide.lat,
+    //         map: map._id
+    //     }
+
+    // })
+
+
+    const slidesData2 = req.body.slide
     const id = req.params.id;
     console.info('body => ', req.body)
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
         next(createError(404));
     } else {
-        Map.findByIdAndUpdate(id, req.body, { new: true })
+        const slides = {
+            title: req.body.title,
+            description: req.body.description,
+            image: req.body.image,
+            long: req.body.long,
+            lat: req.body.lat
+        }
+        Promise.all(slidesData2.map(slide => {
+            return Slide.findByIdAndUpdate(slide.id,
+                //hay que poner la slide pero no se definirla
+                slides, { new: true })
+        }))
+
+        Map.findByIdAndUpdate(id, req.body,
+
+
+
+
+                {
+                    new: true
+                })
             .then(map => {
 
 
@@ -239,12 +275,16 @@ module.exports.doEdit = (req, res, next) => {
             .catch(
                 error => next(error)
             )
-        const slidesData = req.body.slides
-        Promise.all(slidesData.map(slide => {
-            //   return Slide.findByIdAndUpdate(slide.id, field: field, { new: true })
-        }))
+
     }
 }
+
+// 
+// Promise.all(slidesData.map(slide => {
+//     //   return Slide.findByIdAndUpdate(slide.id, field: field, { new: true })
+// }))
+
+
 
 
 
