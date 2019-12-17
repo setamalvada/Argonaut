@@ -63,7 +63,7 @@ const upload = require('./cloudinary.config');
 
 module.exports = router;
 
-
+router.get('/', baseController.index)
 router.get('/home', baseController.index)
 //router.get('/maps', baseController.show)
 router.post('/maps', mapsController.create)
