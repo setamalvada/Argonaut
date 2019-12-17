@@ -224,51 +224,19 @@ module.exports.edit = (req, res, next) => {
 module.exports.doEdit = (req, res, next) => {
 
 
-    // const slidesData = req.body.slides.map(slide => {
-    //     return {
-    //         title: slide.title,
-    //         description: slide.description,
-    //         image: slide.image,
-    //         long: slide.long,
-    //         lat: slide.lat,
-    //         map: map._id
-    //     }
-
-    // })
-
-
-    const slidesData2 = req.body.slide
+    const { slides } = req.body
     const id = req.params.id;
-    console.info('body => ', req.body)
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
         next(createError(404));
     } else {
-        const slides = {
-            title: req.body.title,
-            description: req.body.description,
-            image: req.body.image,
-            long: req.body.long,
-            lat: req.body.lat
-        }
-        Promise.all(slidesData2.map(slide => {
-            return Slide.findByIdAndUpdate(slide.id,
-                //hay que poner la slide pero no se definirla
-                slides, { new: true })
-        }))
+        Promise.all(slides.map(slide =>
+                Slide.findByIdAndUpdate({ '_id': slide.id }, slide, { new: true })))
+            .then(console.info)
+            .catch(console.error)
 
-        Map.findByIdAndUpdate(id, req.body,
-
-
-
-
-                {
-                    new: true
-                })
+        Map.findByIdAndUpdate(id, req.body, { new: true })
             .then(map => {
-
-
-
                 console.log(map)
                 res.redirect('/maps')
             })
