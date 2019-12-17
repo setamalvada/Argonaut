@@ -82,13 +82,13 @@ router.post('/maps/:id/comments', authMiddleware.isAuthenticated, mapsController
 // router.post('/maps', authMiddleware.isAuthenticated, upload.single('image'), mapsController.create)
 
 router.get('/users/new', authMiddleware.isNotAuthenticated, usersController.new)
-router.post('/users', authMiddleware.isNotAuthenticated,upload.single('avatar'), usersController.create)
+router.post('/users', authMiddleware.isNotAuthenticated, upload.single('avatar'), usersController.create)
 router.post('/users/userDashboard', authMiddleware.isAuthenticated, usersController.createDashboard)
 
 router.get('/users/profile', authMiddleware.isAuthenticated, usersController.createDashboard)
 
 router.get('/users/:id/editUser', usersController.edit);
-router.post('/users/:id/editUser', usersController.doEdit);
+router.post('/users/:id/editUser', upload.single('avatar'), usersController.doEdit);
 router.get('/users/:token/validate', usersController.validate)
 
 

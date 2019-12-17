@@ -70,7 +70,9 @@ module.exports.doGoogleLogin = (req, res, next) => {
 
     passport.authenticate('google-auth', (error, user) => {
         if (error) {
-            next(error);
+            //next(error);
+            res.redirect('/users/login')
+            window.alert('There is something wrong with your account, please check your profile. Name and surname are both required ')
         } else {
             req.session.user = user;
             res.redirect('/users/profile')
@@ -148,8 +150,7 @@ module.exports.createDashboard = (req, res, next) => {
 }
 
 module.exports.edit = (req, res, next) => {
-    const id = req.params.id;
-    
+    const id = req.params.id;    
     if (!mongoose.Types.ObjectId.isValid(id)) {
         error => next(error)
     } else {
@@ -166,13 +167,18 @@ module.exports.edit = (req, res, next) => {
   
   module.exports.doEdit = (req, res, next) => {
     const id = req.params.id;
-  
     if (!mongoose.Types.ObjectId.isValid(id)) {
         error => next(error)
     } else {
-        User.findByIdAndUpdate(id, req.body, { new: true })
+        if(req.file){
+            req.body.avatar = req.file.url
+        } else {
+            delete req.body.avatar
+        }
+        User.findByIdAndUpdate(id, {$set:req.body}, { new: true })
             .then(user => {
-                res.redirect('/users/userDashboard')
+                req.session.user = user
+                res.redirect('/users/profile')
             })
             .catch(
                 error => next(error)
