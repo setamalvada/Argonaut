@@ -1,48 +1,3 @@
-{{!-- <form method="POST" action="/users" enctype="multipart/form-data">
-  <div class="form-group">
-    <label for="name">Name</label>
-    <input name="name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-
-  <div class="form-group">
-    <label for="surName">Surname</label>
-    <input name="surName" type="text" class="form-control" id="exampleInputPassword1" placeholder="Surname">
-  </div>
-
-  <div class="form-group">
-    <label for="email">email</label>
-    <input name="email" type="text" class="form-control" id="exampleInputPassword1" placeholder="email">
-  </div>
-
-  <div class="form-group">
-    <label for="username">Username</label>
-    <input name="username" type="text" class="form-control" id="exampleInputPassword1" placeholder="Username">
-  </div>
-
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input name="password" type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
-
-  <div class="form-group">
-      <label for="repeatPassword">Repeat password</label>
-      <input name="repeatPassword" type="text" class="form-control" id="exampleInputPassword1" placeholder="Repeat Password">
-  </div>
-
-  <div class="form-group">
-      <label for="avatar">Avatar</label>
-      <input name="avatar" type="text" class="form-control" id="exampleInputPassword1" placeholder="avatar">
-  </div>
-
-   <div class="form-group">
-      <label for="bio">Bio</label>
-      <input name="bio" type="text" class="form-control" id="exampleInputPassword1" placeholder="bio">
-  </div>
-
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form> --}}
-
 <form action="/users" method="POST" enctype="multipart/form-data">
   <div class="form-group">
     <label for="name">Name</label>
@@ -103,18 +58,6 @@
     </div>
     {{/if}}
   </div>
-
-  {{!-- <div class="form-group">
-    <label for="repeatPassword">Repeat password</label>
-    <input name="repeatPassword" type="password" class="form-control {{#if error.repeatPassword }}is-invalid{{/if}}" id="repeatPassword"
-      placeholder="repeatPassword" value="{{ user.repeatPassword }}">
-
-    {{#if error.repeatPassword}}
-    <div class="invalid-feedback">
-      {{error.repeatPassword.message}}
-    </div>
-    {{/if}}
-  </div> --}}
 
   <div class="form-group">
     <label for="avatar">Avatar</label>
