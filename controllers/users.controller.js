@@ -139,7 +139,7 @@ module.exports.logout = (req, res) => {
 // }
 
 module.exports.createDashboard = (req, res, next) => {
-    Map.find()
+    Map.find({user: req.session.user._id})
     .then(
         maps => {
             res.render('users/userDashboard', { maps })
