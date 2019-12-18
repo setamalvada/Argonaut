@@ -223,7 +223,7 @@ module.exports.edit = (req, res, next) => {
 
 module.exports.doEdit = (req, res, next) => {
 
-
+    console.log(req.body)
     const { slides } = req.body
     const id = req.params.id;
 

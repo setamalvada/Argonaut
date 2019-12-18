@@ -5,6 +5,7 @@ window.onload = () => {
 function createMap() {
     const map = {
         title: mapObj[0].title,
+        description: mapObj[0].description,
         slides: arrObj
     }
 
