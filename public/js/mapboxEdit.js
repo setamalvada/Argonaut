@@ -1,15 +1,15 @@
 window.onload = () => {
-    document.getElementById('create-map-btn').addEventListener('click', createMap)
+    document.getElementById('create-map-btn').addEventListener('click', editMap)
 }
 
-function createMap() {
+function editMap() {
     const map = {
         title: mapObj[0].title,
         description: mapObj[0].description,
         slides: arrObj
     }
 
-    axios.post('/maps', map)
+    axios.post(`/maps/${mapObj[0].id}/edit`, map)
         .then(response => window.location.assign('/maps'))
         .catch(err => console.log(err))
 }

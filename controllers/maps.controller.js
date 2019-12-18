@@ -86,21 +86,7 @@ module.exports.details = (req, res, next) => {
 
 
 
-module.exports.listMaps = (req, res, next) => {
-    Map.find()
 
-    .then(
-
-        maps => {
-            res.render('maps/index', { maps })
-
-        }
-
-    ).catch(
-        error => next(error)
-    );
-
-};
 
 
 module.exports.deleteMap = (req, res, next) => {
@@ -134,7 +120,6 @@ module.exports.create = (req, res, next) => {
     map.save()
         .then(map => {
             const slidesData = req.body.slides.map(slide => {
-
                 return {
                     title: slide.title,
                     description: slide.description,
@@ -154,6 +139,8 @@ module.exports.create = (req, res, next) => {
         })
         .catch(next)
 }
+
+
 
 
 
@@ -215,3 +202,65 @@ module.exports.addComment = (req, res, next) => {
             res.redirect(`/maps/${mapId}`)
         })
 }
+
+module.exports.edit = (req, res, next) => {
+    const id = req.params.id;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        next(createError(404));
+    } else {
+        Map.findById(id)
+            .populate('slides')
+            .then(
+                map => {
+                    res.render('maps/edit', { map })
+                }
+            ).catch(
+                error => next(error)
+            );
+    }
+}
+
+module.exports.doEdit = (req, res, next) => {
+
+    console.log(req.body)
+    const { slides } = req.body
+    const id = req.params.id;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        next(createError(404));
+    } else {
+        Promise.all(slides.map(slide =>
+                Slide.findByIdAndUpdate({ '_id': slide.id }, slide, { new: true })))
+            .then(console.info)
+            .catch(console.error)
+
+        Map.findByIdAndUpdate(id, req.body, { new: true })
+            .then(map => {
+                console.log(map)
+                res.redirect('/maps')
+            })
+            .catch(
+                error => next(error)
+            )
+
+    }
+}
+
+// 
+// Promise.all(slidesData.map(slide => {
+//     //   return Slide.findByIdAndUpdate(slide.id, field: field, { new: true })
+// }))
+
+
+
+
+
+
+/**
+ Promise.all(slides.map(slide => {
+    return Slide.findByIdAndUpdate(slide.id, field: field, { new: true })
+ }))
+    .then(result => [])
+    .catch(catch)
+ */
