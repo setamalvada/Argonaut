@@ -33,11 +33,11 @@ const mapsSchema = new mongoose.Schema({
 //   next()
 // });
 
-// tweetSchema.virtual('comments', {
-//   ref: 'Comment',
-//   localField: '_id',
-//   foreignField: 'tweet',
-//   justOne: false,
+// mapsSchema.virtual('comments', {
+//     ref: 'Comment',
+//     localField: '_id',
+//     foreignField: 'map',
+//     justOne: false
 // });
 
 // tweetSchema.virtual('likes', {

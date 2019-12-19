@@ -61,6 +61,14 @@ label {
     max-height: 100%;
 }
 
+input:invalid {
+    border: 2px solid red;
+}
+
+textarea:invalid {
+    border: 2px solid red;
+}
+
 
 /* Slideshow container */
 

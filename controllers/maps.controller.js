@@ -38,9 +38,12 @@ module.exports.create = (req, res, next) => {
                     res.json(map)
                 })
                 .catch(next)
+
         })
         .catch(next)
 }
+
+
 
 module.exports.details = (req, res, next) => {
     const id = req.params.id;
@@ -83,49 +86,7 @@ module.exports.deleteMap = (req, res, next) => {
     }
 }
 
-module.exports.newMap = (_, res) => {
-    res.render('maps/new');
-}
 
-module.exports.create = (req, res, next) => {
-    const map = new Map({
-        user: req.session.user._id,
-        title: req.body.title,
-        description: req.body.description,
-        image: req.body.image,
-        cathegory: req.body.cathegory
-    })
-
-    map.save()
-        .then(map => {
-            const slidesData = req.body.slides.map(slide => {
-                return {
-                    title: slide.title,
-                    description: slide.description,
-                    image: slide.image,
-                    long: slide.long,
-                    lat: slide.lat,
-                    map: map._id
-                }
-
-            })
-            console.log(slidesData)
-            Slide.create(slidesData)
-                .then(slides => {
-                    res.json(map)
-                })
-                .catch(next)
-        })
-        .catch(next)
-}
-
-/**
- Promise.all(slides.map(slide => {
-    return Slide.findByIdAndUpdate(slide.id, field: field, { new: true })
- }))
-    .then(result => [])
-    .catch(catch)
- */
 
 module.exports.listMaps = (req, res, next) => {
     Map.find()
@@ -191,12 +152,19 @@ module.exports.edit = (req, res, next) => {
 }
 
 module.exports.doEdit = (req, res, next) => {
+
+    console.log(req.body)
+    const { slides } = req.body
     const id = req.params.id;
-    console.info('body => ', req.body)
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
         next(createError(404));
     } else {
+        Promise.all(slides.map(slide =>
+                Slide.findByIdAndUpdate({ '_id': slide.id }, slide, { new: true })))
+            .then(console.info)
+            .catch(console.error)
+
         Map.findByIdAndUpdate(id, req.body, { new: true })
             .then(map => {
                 console.log(map)
@@ -205,5 +173,21 @@ module.exports.doEdit = (req, res, next) => {
             .catch(
                 error => next(error)
             )
+
     }
 }
+
+// 
+// Promise.all(slidesData.map(slide => {
+//     //   return Slide.findByIdAndUpdate(slide.id, field: field, { new: true })
+// }))
+
+
+
+/**
+ Promise.all(slides.map(slide => {
+    return Slide.findByIdAndUpdate(slide.id, field: field, { new: true })
+ }))
+    .then(result => [])
+    .catch(catch)
+ */

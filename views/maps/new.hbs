@@ -4,64 +4,67 @@
 <div id="main">
    <form id="mapForm" onsubmit="return saveMapData()">
           <div class="form-group">
-            <label for="mapTitle">Enter map title</label>
+            <h4 for="mapTitle">Map title</h4>
             <input name="mapTitle" type="text" class="form-control title" id="mapTitle"
-            placeholder="Enter title" value="mapTitle">
+            placeholder="Enter title" value="Title" required>
             </div>
 
             <div class="form-group">
-            <label for="mapDescription">Enter map description</label>
+            <h5 for="mapDescription">Map description</h5>
             <textarea name="mapDescription" type="text" class="form-control description"  id="mapDescription"
-            placeholder="Enter text" value="mapDescription" rows="4"></textarea>
+            placeholder="Enter text" value="mapDescription" rows="4" required>Write something!</textarea>
 
             
         </div>
 
        
-<input type="submit" value="submit">
+<input  type="submit" class="btn btn-secondary" value="Submit Map data">
 
 </form>
+<br>
+</div>
 
 </div>
 
  <form onsubmit="return saveData()">
           <div class="form-group">
-            <label for="title">Enter slide title</label>
+            <h4 for="title">Slide title</h4>
             <input name="title" type="text" class="form-control title" id="title"
-            placeholder="Enter title" value="title">
+            placeholder="Enter title" value="title" required>
             </div>
 
             <div class="form-group">
-            <label for="description">Enter slide text</label>
+            <h5 for="description">Slide body</h5>
             <textarea name="description" type="text" class="form-control description"  id="description"
-            placeholder="Enter text" value="description" rows="4">Enter text</textarea>
+            placeholder="Enter text" value="description" rows="4" required>Tell us a fine story!</textarea>
 
             
         </div>
 
 
         <div class="form-group">
-            <label for="image">Enter image url</label>
+            <h5 for="image">Image url</h5>
             <input name="image" type="text" class="form-control image" id="image"
             placeholder="Enter image">
             </div>
 
         <div class="form-group">
-            <label for="long">Longitude</label>
+            <h5 for="long">Longitude</h5>
             <input name="long" type="number" step="any" class="form-control title" id="long"
-             value="long">
+             placeholder="0" value="long" required>
             </div>
 
         <div class="form-group">
-            <label for="lat">Latitude</label>
+            <h5 for="lat">Latitude</h5>
             <input name="lat" type="number" step="any" class="form-control title" id="lat"
-             value="lat">
+             value="lat" placeholder="0" required>
              
             </div>    
 
 
-<input type="submit" value="submit">
+<input  type="submit" class="btn btn-secondary" value="Submit slide data">
 </form>
+<br>
   <button type="button" class="btn btn-primary" id="create-map-btn">
     Create map
   </button>
@@ -183,13 +186,24 @@ const mapObj = []
         mapElement.description = mapDescription
          mapObj.push({...mapElement})
          console.log(mapObj)
+
         let h1 = document.createElement("h1");
         let p = document.createElement("p");
+
+
         h1.innerHTML = mapTitle
         p.innerHTML = mapDescription
+
       
+
 document.getElementById("main").appendChild(h1);
 document.getElementById("main").appendChild(p);
+
+
+
+
+
+
          document.getElementById('mapForm').remove()
        
         return false
