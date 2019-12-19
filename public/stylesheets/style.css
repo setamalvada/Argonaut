@@ -315,61 +315,10 @@ textarea:invalid {
 .next {
     right: 0;
     border-radius: 3px 0 0 3px;
+    margin-left: 150px;
 }
 
 .prev:hover,
 .next:hover {
     background-color: rgba(0, 0, 0, 0.8);
-}
-
-.blogSlider__dots {
-    text-align: center;
-    cursor: pointer;
-    height: 10px;
-    width: 10px;
-    margin: 0 2px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-    transition: background-color 0.6s ease;
-}
-
-.--dot {
-    cursor: pointer;
-    height: 10px;
-    width: 10px;
-    margin: 0 2px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-    transition: background-color 0.6s ease;
-}
-
-.active,
-.blogSlider__dots--dot:hover {
-    background-color: #717171;
-/*slideshow user*/
-
-.MultiCarousel { float: left; overflow: hidden; padding: 15px; width: 55%; position:relative; }
-.MultiCarousel .MultiCarousel-inner { transition: 1s ease all; float: left; }
-.MultiCarousel .MultiCarousel-inner .item { float: left;}
-.MultiCarousel .MultiCarousel-inner .item > div { text-align: center; padding:10px; margin:10px; background:#f1f1f1; color:#666;}
-.MultiCarousel .leftLst, .MultiCarousel .rightLst { position:absolute; border-radius:50%;top:calc(50% - 20px); }
-.MultiCarousel .leftLst { left:0; }
-.MultiCarousel .rightLst { right:0; }
-    
-.MultiCarousel .leftLst.over, .MultiCarousel .rightLst.over { pointer-events: none; background:#ccc; }
-
-/*Background colors*/
-
-.bg-bl{
-    background-color: lightblue;
-}
-
-.bord-rad{
-    border-radius: 30px;;
-}
-
-.blue-let{
-    color:#2c7fb8;
 }
