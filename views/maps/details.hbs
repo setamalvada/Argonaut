@@ -40,7 +40,6 @@
 
 
     {{!-- <div id="dots"></div>
-
     <div id="slides"></div> --}}
   <div class="blogSlides">
     <h1>
@@ -69,7 +68,6 @@
     {{!-- <p>
    {{s.long}} 
     </p>
-
       <p>
    {{s.lat}} 
     </p> --}}
@@ -109,26 +107,15 @@
 
 
 
+
+
+
 <script>
-
-
-
-
-
-
-
-
   let long= 0
   let lat= 0   
-
 var slideIndex = 0;
-
 updatePosition();
-
-
-
 mapboxgl.accessToken = 'pk.eyJ1IjoiaXJvbm1vZHVsZTIiLCJhIjoiY2szZnQzdzN0MDdzNjNjbzQ5amZ5M24wMyJ9.1AdiIc2dD4lw7Toih03G0Q';
-
         const map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/streets-v11',
@@ -136,10 +123,8 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiaXJvbm1vZHVsZTIiLCJhIjoiY2szZnQzdzN0MDdzNjNjb
             
             zoom: 9.0,
         });
-
 map.addControl(new mapboxgl.FullscreenControl());
         map.addControl(new mapboxgl.NavigationControl());
-
         let layerList = document.getElementById('menu');
 let inputs = layerList.getElementsByTagName('input');
  
@@ -151,7 +136,6 @@ map.setStyle('mapbox://styles/mapbox/' + layerId);
 for (let i = 0; i < inputs.length; i++) {
 inputs[i].onclick = switchLayer;
 }
-
         map.on('load', function() {
             map.loadImage('https://img.icons8.com/android/24/000000/marker.png', function(error, image) {
                 if (error) throw error;
@@ -179,11 +163,7 @@ inputs[i].onclick = switchLayer;
                 });
             });
         });  
-
-
-
 showSlides(slideIndex);
-
 function plusSlides(n) {
   showSlides(slideIndex += n);
    map.flyTo({
@@ -192,16 +172,13 @@ function plusSlides(n) {
             });
             console.log(long)
 }
-
 function currentSlide(n) {
   showSlides(slideIndex = n);
 }
-
 function updatePosition() {
    long= document.getElementById(`long-${slideIndex}`).value
    lat = document.getElementById(`lat-${slideIndex}`).value 
 }
-
 function showSlides(n) {
   var i;
   var slides = document.getElementsByClassName("blogSlides");
@@ -214,7 +191,6 @@ function showSlides(n) {
     slideIndex = slides.length - 1;
     
   } 
-
   updatePosition();
   for (i = 0; i < slides.length; i++) {
     slides[i].style.display = "none";
@@ -228,13 +204,6 @@ function showSlides(n) {
   slides[slideIndex].style.display = "block";
   dots[slideIndex].className += " active";
 }
-
-
-
-
-
-
-
 /*
         document.getElementById('fly').addEventListener('click', function() {
           
@@ -244,9 +213,5 @@ function showSlides(n) {
             });
             console.log(long)
         });
-
       */  
-
-
-
 </script>

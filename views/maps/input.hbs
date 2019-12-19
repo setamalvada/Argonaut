@@ -1,0 +1,189 @@
+ {{!-- <div class="blog-slider__container">
+        <div class="blogSlides fade">
+            <div class="blog-slider__numbertext">1 / 3</div>
+            <div>kfjhdsklfhfhjdshfkjdhfkjdshkjfh dh f hdf kdhfkjhdsfkjhdskjfhjdshfkjdfhj hj fjdhfjhfjhfh k</div>
+            <div class="blog-slider__text">Caption Text</div>
+        </div>
+
+        <div class="blogSlides fade">
+            <div class="blog-slider__numbertext">2 / 3</div>
+            <img src="https://www.dropbox.com/s/wu9u6l53z3q6zpa/date.jpg?raw=1">
+            <div class="blog-slider__text">Caption Two</div>
+        </div>
+
+        <div class="blogSlides fade">
+            <div class="blog-slider__numbertext">3 / 3</div>
+            <img src="https://www.dropbox.com/s/c7vg753l95iv7g8/photo-bg-04.jpg?raw=1">
+            <div class="blog-slider__text">Caption Three</div>
+        </div>
+
+        <a class="prev" id="fly" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" id="fly2" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+    <br>
+
+    <div class="blogSlider__dots" style="text-align:center">
+        <span class="blogSlider__dots--dot" onclick="currentSlide(1)"></span>
+        <span class="blogSlider__dots--dot" onclick="currentSlide(2)"></span>
+        <span class="blogSlider__dots--dot" onclick="currentSlide(3)"></span>
+    </div> --}}
+
+{{!-- 
+    <div class="blog-slider__container">
+        <div class="blogSlides fade">
+            <div class="blog-slider__numbertext">1 / 3</div>
+
+        <form action="/users" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="title">Enter title</label>
+            <input title="title" type="text" class="form-control" id="title"
+            placeholder="Enter title" value="title">
+
+            <div class="form-group">
+            <label for="description">Your text</label>
+            <textarea name="description" type="text" class="form-control"  id="description"
+            placeholder="Enter text" value="description" rows="4"></textarea>
+
+            
+        </div>
+
+  <button type="submit" class="btn btn-primary">
+    Next slide
+  </button>
+</form>
+ --}}
+
+
+        <div class="blog-slider__text">Caption Te  /div>
+        </div>
+
+        <div class="blogSlides fade">
+            <div class="blog-slider__numbertext">2 / 3</div>
+            {{!-- <img src="https://www.dropbox.com/s/wu9u6l53z3q6zpa/date.jpg?raw=1"> --}}
+            <div class="blog-slider__text">Caption Two</div>
+        </div>
+
+       
+
+        <a class="prev" id="fly" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" id="fly2" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+    <br>
+
+    <div class="blogSlider__dots" style="text-align:center">
+        <span class="blogSlider__dots--dot" onclick="currentSlide(1)"></span>
+        <span class="blogSlider__dots--dot" onclick="currentSlide(2)"></span>
+        <span class="blogSlider__dots--dot" onclick="currentSlide(3)"></span>
+    </div>
+
+
+    <div id="map">
+
+
+
+
+
+
+    </div>
+
+
+{{!-- <script src='../public/js/mapbox.js'></script>  --}}
+   
+
+<script>
+
+    mapboxgl.accessToken = 'pk.eyJ1IjoiaXJvbm1vZHVsZTIiLCJhIjoiY2szZnQzdzN0MDdzNjNjbzQ5amZ5M24wMyJ9.1AdiIc2dD4lw7Toih03G0Q';
+
+const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [-77.04, 38.907],
+    zoom: 11.15,
+});
+
+console.log(map)
+
+map.on('load', function() {
+    map.loadImage('https://img.icons8.com/android/24/000000/marker.png', function(error, image) {
+        if (error) throw error;
+        map.addImage('marker', image);
+        map.addLayer({
+            "id": "points",
+            "type": "symbol",
+            "source": {
+                "type": "geojson",
+                "data": {
+                    "type": "FeatureCollection",
+                    "features": [{
+                        "type": "Feature",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [0, 0]
+                        }
+                    }]
+                }
+            },
+            "layout": {
+                "icon-image": "marker",
+                "icon-size": 1
+            }
+        });
+    });
+});
+
+
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+    showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+    showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+    var i;
+    var slides = document.getElementsByClassName("blogSlides");
+    var dots = document.getElementsByClassName("blogSlider__dots--dot");
+    if (n > slides.length) {
+        slideIndex = 1
+            // map.center = [-77.04, 38.907]
+            //map.flyTo({center: [-77.04, 38.907]})
+
+    }
+    if (n < 1) {
+        slideIndex = slides.length
+    }
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
+}
+
+document.getElementById('fly').addEventListener('click', function() {
+    // Fly to a random location by offsetting the point -74.50, 40
+    // by up to 5 degrees.
+    map.flyTo({
+        center: [-74.50 + (Math.random() - 0.5) * 10,
+            40 + (Math.random() - 0.5) * 10
+        ]
+    });
+});
+
+document.getElementById('fly2').addEventListener('click', function() {
+    // Fly to a random location by offsetting the point -74.50, 40
+    // by up to 5 degrees.
+    map.flyTo({
+        center: [-74.50 + (Math.random() - 0.5) * 10,
+            40 + (Math.random() - 0.5) * 10
+        ]
+    });
+}); 
+
+</script>

@@ -1,4 +1,5 @@
 const User = require('../models/user.model');
+const Map = require('../models/maps.model');
 const mongoose = require('mongoose');
 const mailer = require('../config/mailer.config');
 const passport = require('passport');
@@ -15,32 +16,32 @@ module.exports.new = (_, res) => {
          email: req.body.email,
          password: req.body.password,
          repeatPassword: req.body.repeatPassword,
-         //avatar: req.file ? req.file.url : undefined,
+         avatar: req.file ? req.file.url : undefined,
          bio: req.body.bio
      })
 
      console.log(user)
 
     user.save()
-                .then((user) => {
-                    // mailer.sendValidateEmail(user)
-                    res.redirect('/login')
+        .then((user) => {
+            mailer.sendValidateEmail(user)
+            res.redirect('/login')
+        })
+        .catch(error => {
+            if (error instanceof mongoose.Error.ValidationError) {
+                res.render('users/new', { user, error: error.errors })
+            } else if (error.code === 11000) {
+                res.render('users/new', {
+                    user: {
+                        ...user,
+                        password: null
+                    },
+                    genericError: 'User exists'
                 })
-                .catch(error => {
-                    if (error instanceof mongoose.Error.ValidationError) {
-                        res.render('users/new', { user, error: error.errors })
-                    } else if (error.code === 11000) {
-                        res.render('users/new', {
-                            user: {
-                                ...user,
-                                password: null
-                            },
-                            genericError: 'User exists'
-                        })
-                    } else {
-                        next(error);
-                    }
-                })
+            } else {
+                next(error);
+            }
+        })
 }
 
 module.exports.validate = (req, res, next) => {
@@ -50,11 +51,11 @@ module.exports.validate = (req, res, next) => {
                 user.validated = true
                 user.save()
                     .then(() => {
-                        res.redirect('/login')
+                        res.redirect('/users/profile')
                     })
                     .catch(next)
             } else {
-                res.redirect('/')
+                res.redirect('users/new')
             }
         })
         .catch(next)
@@ -64,22 +65,23 @@ module.exports.login = (_, res) => {
     res.render('users/login')
 }
 
-// module.exports.doSocialLogin = (req, res, next) => {
-//     const socialProvider = req.params.provider
+module.exports.doGoogleLogin = (req, res, next) => {
+    const socialProvider = req.params.provider
 
-//     passport.authenticate(`${socialProvider}-auth`, (error, user) => {
-//         if (error) {
-//             next(error);
-//         } else {
-//             req.session.user = user;
-//             res.redirect('/')
-//         }
-//     })(req, res, next);
-// }
+    passport.authenticate('google-auth', (error, user) => {
+        if (error) {
+            //next(error);
+            res.redirect('/users/login')
+            window.alert('There is something wrong with your account, please check your profile. Name and surname are both required ')
+        } else {
+            req.session.user = user;
+            res.redirect('/users/profile')
+        }
+    })(req, res, next);
+}
 
 module.exports.doLogin = (req, res, next) => {
     const { email, password/*, repeatPassword */} = req.body
-
     if (!email || !password /*|| !repeatPassword*/) {
         return res.render('users/login', { user: req.body })
     }
@@ -107,8 +109,9 @@ module.exports.doLogin = (req, res, next) => {
                             })
                         } else {
                             req.session.user = user;
-                            req.session.genericSuccess = 'Welcome!'
-                            res.redirect('users/userDashboard');
+                            // req.session.genericSuccess = 'Welcome!'
+                            //res.render('users/userDashboard', {user: req.body});
+                            res.redirect('/users/profile');
                         }
                     })
                 //}
@@ -131,6 +134,54 @@ module.exports.logout = (req, res) => {
     res.redirect('/login');
 }
 
-module.exports.createDashboard = (_, res) => {
-    res.render('users/userDashboard')
+// module.exports.createDashboard = (_, res) => {
+//     res.render('users/userDashboard')
+// }
+
+module.exports.createDashboard = (req, res, next) => {
+    Map.find({user: req.session.user._id})
+    .then(
+        maps => {
+            res.render('users/userDashboard', { maps })
+        }
+    ).catch(
+        error => next(error)
+    );
 }
+
+module.exports.edit = (req, res, next) => {
+    const id = req.params.id;    
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        error => next(error)
+    } else {
+        User.findById(id)
+            .then(
+                user => {
+                    res.render('users/editUser', { user })
+                }
+            ).catch(
+                error => next(error)
+            );
+    }
+  }
+  
+  module.exports.doEdit = (req, res, next) => {
+    const id = req.params.id;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        error => next(error)
+    } else {
+        if(req.file){
+            req.body.avatar = req.file.url
+        } else {
+            delete req.body.avatar
+        }
+        User.findByIdAndUpdate(id, {$set:req.body}, { new: true })
+            .then(user => {
+                req.session.user = user
+                res.redirect('/users/profile')
+            })
+            .catch(
+                error => next(error)
+            )
+    }
+  }

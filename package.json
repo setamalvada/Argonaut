@@ -1,7 +1,6 @@
 {
   "name": "auth-example",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -26,14 +25,27 @@
     "morgan": "^1.9.1",
     "multer": "^1.4.2",
     "multer-storage-cloudinary": "^2.2.1",
-    "nodemailer": "4.7.0",
+    "nodemailer": "^4.7.0",
     "passport": "^0.4.0",
     "passport-facebook": "^3.0.0",
     "passport-google-oauth": "^2.0.0",
+    "passport-google-oauth20": "^2.0.0",
     "passport-oauth": "^1.0.0",
     "passport-slack": "0.0.7"
   },
   "devDependencies": {
     "nodemon": "^1.19.4"
-  }
+  },
+  "bin": {
+    "auth-example": "seeds.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/setamalvada/Argonaut.git"
+  },
+  "bugs": {
+    "url": "https://github.com/setamalvada/Argonaut/issues"
+  },
+  "homepage": "https://github.com/setamalvada/Argonaut#readme",
+  "description": ""
 }

@@ -10,3 +10,7 @@ module.exports.index = (_, res) => {
 // module.exports.show = (_, res) => {
 //     res.render('maps/show');
 // }
+
+module.exports.input = (_, res) => {
+    res.render('maps/input');
+}

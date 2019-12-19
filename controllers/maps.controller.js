@@ -23,7 +23,6 @@ module.exports.create = (req, res, next) => {
     map.save()
         .then(map => {
             const slidesData = req.body.slides.map(slide => {
-
                 return {
                     title: slide.title,
                     description: slide.description,
@@ -32,7 +31,6 @@ module.exports.create = (req, res, next) => {
                     lat: slide.lat,
                     map: map._id
                 }
-
             })
             console.log(slidesData)
             Slide.create(slidesData)
@@ -41,14 +39,9 @@ module.exports.create = (req, res, next) => {
                 })
                 .catch(next)
 
-
-
-
         })
         .catch(next)
 }
-
-
 
 
 
@@ -75,19 +68,8 @@ module.exports.details = (req, res, next) => {
             })
             .catch(error => next(error));
 
-
-
-
     }
 };
-
-
-
-
-
-
-
-
 
 module.exports.deleteMap = (req, res, next) => {
     const id = req.params.id;
@@ -103,54 +85,6 @@ module.exports.deleteMap = (req, res, next) => {
             .catch(error => next(error))
     }
 }
-
-module.exports.newMap = (_, res) => {
-    res.render('maps/new');
-}
-
-module.exports.create = (req, res, next) => {
-    const map = new Map({
-        user: req.session.user._id,
-        title: req.body.title,
-        description: req.body.description,
-        image: req.body.image,
-        cathegory: req.body.cathegory
-    })
-
-    map.save()
-        .then(map => {
-            const slidesData = req.body.slides.map(slide => {
-                return {
-                    title: slide.title,
-                    description: slide.description,
-                    image: slide.image,
-                    long: slide.long,
-                    lat: slide.lat,
-                    map: map._id
-                }
-
-            })
-            console.log(slidesData)
-            Slide.create(slidesData)
-                .then(slides => {
-                    res.json(map)
-                })
-                .catch(next)
-        })
-        .catch(next)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -169,10 +103,6 @@ module.exports.listMaps = (req, res, next) => {
     );
 
 };
-
-
-
-
 
 module.exports.addComment = (req, res, next) => {
     const mapId = req.params.id
@@ -251,9 +181,6 @@ module.exports.doEdit = (req, res, next) => {
 // Promise.all(slidesData.map(slide => {
 //     //   return Slide.findByIdAndUpdate(slide.id, field: field, { new: true })
 // }))
-
-
-
 
 
 
