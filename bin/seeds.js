@@ -1,6 +1,8 @@
 require('../config/db.config')
 
 const User = require('../models/user.model')
+//const Maps = require('../models/maps.model')
+//const Slide = require('../models/slide.model')
 const Tweet = require('../models/tweet.model')
 const Comment = require('../models/comment.model')
 const faker = require('faker')
@@ -16,9 +18,11 @@ Promise.all([
     for (let i = 0; i < 100; i++) {
       const user = new User({
         name: faker.name.findName(),
+        surName: faker.surName.findName(),
         email: faker.internet.email(),
         username: faker.internet.userName(),
         password: '123123123',
+        repeatPassword:'123123123',
         avatar: faker.image.avatar(),
         bio: faker.lorem.sentence(),
         validated: true,
@@ -56,4 +60,4 @@ Promise.all([
         })
         .catch(console.error)
     }
-  })
+  }).catch(console.error)

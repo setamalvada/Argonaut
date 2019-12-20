@@ -1,0 +1,200 @@
+ {{!-- <form action="/maps" method="POST" > --}}
+
+<div>
+<div id="main">
+   <form id="mapForm" method="POST" onsubmit="return saveMapData()">
+<div class="form-group">
+            
+            <input name="mapId" type="hidden" class="form-control title" id="mapId"
+            value="{{map.id}}" >
+            </div>
+
+          <div class="form-group">
+            <h4 for="mapTitle">Edit map title</h4>
+            <input name="mapTitle" type="text" class="form-control title" id="mapTitle"
+            value="{{map.title}}" required>
+            </div>
+
+            <div class="form-group">
+            <h5 for="mapDescription">Edit map description</h5>
+            <textarea name="mapDescription" type="text" class="form-control description"  id="mapDescription"
+             rows="4" >{{map.description}}</textarea>
+
+            
+        </div>
+
+       
+<input type="submit" class="btn btn-secondary" value="Edit map features">
+
+</form>
+
+</div>
+
+
+{{#each map.slides as |s|}}
+
+
+ <form id="slideForm" onsubmit="return saveData()">
+
+<div class="form-group">
+            
+            <input name="id" type="hidden" class="form-control title" id="id"
+             value="{{s.id}}">
+            </div>
+
+
+          <div class="form-group">
+            <h4 for="title">Enter slide title</h4>
+            <input name="title" type="text" class="form-control title" id="title"
+             value="{{s.title}}" required>
+            </div>
+
+            <div class="form-group">
+            <h5 for="description">Enter slide text</h5>
+            <textarea name="description" type="text" class="form-control description"  id="description"
+             value="{{s.description}}" rows="4" required>{{s.description}}</textarea>
+
+            
+        </div>
+
+
+        <div class="form-group">
+            <h5 for="image">Enter image url</h5>
+            <input name="image" type="text" class="form-control image" id="image"
+            value="{{s.image}}">
+            </div>
+
+        <div class="form-group">
+            <h5 for="long">Longitude</h5>
+            <input name="long" type="number" step="any" class="form-control title" id="long"
+             value="{{s.long}}" required>
+            </div>
+
+        <div class="form-group">
+            <h5 for="lat">Latitude</h5>
+            <input name="lat" type="number" step="any" class="form-control title" id="lat"
+             value="{{s.lat}}" required>
+             
+            </div>    
+
+
+<input type="submit" class="btn btn-secondary" value="Edit this slide">
+</form>
+
+{{/each}}
+
+<br>
+
+  <button type="button" class="btn btn-primary" id="create-map-btn">
+    Save Changes
+  </button>
+
+</div>
+
+<br>
+<br>
+
+
+
+ 
+ <script>
+  
+let title = ""
+let description = ""
+let image = ""
+let longitude = 0
+let latitude = 0 
+let mapId = ""
+let mapTitle = ""
+let mapDescription = ""
+let id = ""
+
+
+        
+
+
+const arrObj = []
+const mapObj = []
+
+     function saveData(){
+     
+         
+
+id = document.getElementById("id").value
+          title = document.getElementById("title").value
+          description = document.getElementById("description").value
+          longitude = document.getElementById("long").value
+          latitude = document.getElementById("lat").value
+
+         
+        // console.log(title)
+          let slide = 0
+        let element = {}
+       
+      
+
+     element.id = id
+        element.title = title
+        element.description = description
+        element.image = image
+       element.long = longitude
+        element.lat = latitude
+        arrObj.push({...element})
+       
+        console.log(arrObj)
+document.getElementById('slideForm').remove()
+        
+        return false
+         
+     }
+
+     function saveMapData(){
+
+mapId = document.getElementById("mapId").value
+       mapTitle = document.getElementById("mapTitle").value
+          mapDescription = document.getElementById("mapDescription").value
+
+ let mapElement = {}
+ mapElement.id = mapId
+           mapElement.title = mapTitle
+        mapElement.description = mapDescription
+
+         mapObj.push({...mapElement})
+
+         console.log(mapObj)
+
+        let h1 = document.createElement("h1");
+        let p = document.createElement("p");
+
+
+        h1.innerHTML = mapTitle
+        p.innerHTML = mapDescription
+
+      
+
+document.getElementById("main").appendChild(h1);
+document.getElementById("main").appendChild(p);
+
+
+
+
+
+
+         document.getElementById('mapForm').remove()
+       
+        return false
+
+     }
+
+
+
+ </script>
+
+ <script src="/js/mapboxEdit.js"></script>
+ 
+ 
+ 
+ 
+ 
+ 
+ 

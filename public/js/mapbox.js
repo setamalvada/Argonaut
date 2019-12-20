@@ -1,4 +1,4 @@
-mapboxgl.accessToken = 'pk.eyJ1IjoiaXJvbm1vZHVsZTIiLCJhIjoiY2szZnQzdzN0MDdzNjNjbzQ5amZ5M24wMyJ9.1AdiIc2dD4lw7Toih03G0Q';
+/*mapboxgl.accessToken = 'pk.eyJ1IjoiaXJvbm1vZHVsZTIiLCJhIjoiY2szZnQzdzN0MDdzNjNjbzQ5amZ5M24wMyJ9.1AdiIc2dD4lw7Toih03G0Q';
 
 const map = new mapboxgl.Map({
     container: 'map',
@@ -49,38 +49,11 @@ function currentSlide(n) {
     showSlides(slideIndex = n);
 }
 
-function showSlides(n) {
-    var i;
-    var slides = document.getElementsByClassName("blogSlides");
-    var dots = document.getElementsByClassName("blogSlider__dots--dot");
-    if (n > slides.length) {
-        slideIndex = 1
-            // map.center = [-77.04, 38.907]
-            //map.flyTo({center: [-77.04, 38.907]})
-
+function createMap() {
+    const map = {
+        title: mapObj[0].title,
+        slides: arrObj
     }
-    if (n < 1) {
-        slideIndex = slides.length
-    }
-    for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-    }
-    for (i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", "");
-    }
-    slides[slideIndex - 1].style.display = "block";
-    dots[slideIndex - 1].className += " active";
-}
-
-document.getElementById('fly').addEventListener('click', function() {
-    // Fly to a random location by offsetting the point -74.50, 40
-    // by up to 5 degrees.
-    map.flyTo({
-        center: [-74.50 + (Math.random() - 0.5) * 10,
-            40 + (Math.random() - 0.5) * 10
-        ]
-    });
-});
 
 document.getElementById('fly2').addEventListener('click', function() {
     // Fly to a random location by offsetting the point -74.50, 40
@@ -90,4 +63,25 @@ document.getElementById('fly2').addEventListener('click', function() {
             40 + (Math.random() - 0.5) * 10
         ]
     });
-});
+});*/
+
+window.onload = () => {
+    document.getElementById('create-map-btn').addEventListener('click', createMap)
+}
+
+function createMap() {
+    const map = {
+        title: mapObj[0].title,
+        description: mapObj[0].description,
+        slides: arrObj
+    }
+
+    axios.post('/maps', map)
+        .then(response => window.location.assign('/maps'))
+        .catch(err => console.log(err))
+}
+
+// function getDomain() {
+//     return process.env.NODE_ENV === 'dev' ?
+//         '' : 'https://herokuapp.com'
+// }

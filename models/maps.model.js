@@ -8,12 +8,17 @@ const mapsSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
+    comments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comment',
+        required: true
+    }],
     title: {
         type: String,
         required: true
     },
     description: {
-        type: [String]
+        type: String
     },
     image: {
         type: String
@@ -21,7 +26,6 @@ const mapsSchema = new mongoose.Schema({
     cathegory: {
         type: String
     }
-
 }, { timestamps: true })
 
 // mapsSchema.pre('save', function (next) {
@@ -29,11 +33,11 @@ const mapsSchema = new mongoose.Schema({
 //   next()
 // });
 
-// tweetSchema.virtual('comments', {
-//   ref: 'Comment',
-//   localField: '_id',
-//   foreignField: 'tweet',
-//   justOne: false,
+// mapsSchema.virtual('comments', {
+//     ref: 'Comment',
+//     localField: '_id',
+//     foreignField: 'map',
+//     justOne: false
 // });
 
 // tweetSchema.virtual('likes', {
@@ -42,6 +46,13 @@ const mapsSchema = new mongoose.Schema({
 //   foreignField: 'tweet',
 //   justOne: false,
 // });
+
+mapsSchema.virtual('slides', {
+    ref: 'Slide',
+    localField: '_id',
+    foreignField: 'map',
+    justOne: false
+})
 
 const Map = mongoose.model('Map', mapsSchema);
 
